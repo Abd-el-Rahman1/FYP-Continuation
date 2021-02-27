@@ -1,0 +1,54 @@
+{%  extends 'Base.html' %}
+{% block content %}
+<style>
+	#card-title{
+		background-color: #17ac1f;
+		color: white;
+		font-size:13px;
+		text-align: center;
+	}
+</style>
+<br>
+<div class="container">
+	<div class="row">
+		<div class="card-header mb-3 text-center" id=card-title>
+			<h5  class="card-title">CUSTOMER FORM UPDATE</h5>
+		</div>	
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+				<form action="" method="POST" id="form1">
+					{% csrf_token %}
+					<hr>Name
+					<br>{{form.name}}
+					<hr>Phone
+					<br>{{form.phone}}
+					<hr>Email
+					<br>{{form.email}}
+					<hr>Age
+					<br>{{form.age}}
+					<hr>Address ?
+					<br>{{form.address}}			
+			</div>
+		</div>
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+					<hr>Status
+					<br>{{form.status}}
+					<hr>Problem
+					<br>{{form.problem}}
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 865px;">
+			<div id="table-short">
+				<button class="btn btn-success  btn" form="form1" type="submit">Update</button></input>
+			</div>
+
+			<div id="table-short">
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'customerComplaints' %}">Cancle</a>
+		</div>
+</div>
+
+{% endblock %}

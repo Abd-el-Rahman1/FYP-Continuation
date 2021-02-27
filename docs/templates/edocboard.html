@@ -1,0 +1,334 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-short {
+  height: 600px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+
+
+<div style="max-width: 350px; margin-bottom: 10px;" class="container mx-auto w-50px">
+	<div class="col">
+		<div style="text-align:center; " class="button-box col-lg-12">
+            <a style="font-size: medium;" class="btn btn-success  btn-block fa fa-plus fa-lg" aria-hidden="true" href="{% url 'docEmployeeCreate'%}"> Create New Entry</a>
+   		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">General</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.dateDeleted == null and d.kind == 'General' or d.kind == null and d.dateDeleted == null %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Audit</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Audit' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Policy</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Policy' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Procedures</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Procedures' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Guidelines</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Guidelines' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Forms and Templates</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Forms and templates' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Minutes</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Minutes' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">Project Related</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Creator</th>
+							<th>Name</th>
+							<th>Project</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Project/Task/Report</th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for d in docs %}
+						{% if d.kind == 'Project Related' and d.dateDeleted == NULL %}
+							<tr >
+							<td>{{d.creator}}</td>	
+							<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+							<td>{{d.projectID}}</td>
+							<td>{{d.dateCreated}}</td>
+							<td>{{d.dateUpdated}}</td>
+							<td>P:{{d.projectID}}-T:{{d.taskID}}-R:{{d.reportID}}</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{%  extends 'Base.html' %}
+{% block content %}
+<style>
+	#card-title{
+		background-color: #17ac1f;
+		color: white;
+		font-size:13px;
+		text-align: center;
+	}
+</style>
+
+<br>
+<div class="container">
+	<div class="row">
+		<div class="card-header mb-3 text-center" id=card-title>
+			<h5  class="card-title">Document Creation</h5>
+	  </div>	
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+				<form id="form1" action="" method="POST" enctype= multipart/form-data>
+					{% csrf_token %}
+					<hr>Project
+					<br>{{form.projectID}}
+					<hr>Task
+					<br>{{form.taskID}}
+					<hr>Document
+					<br>{{form.document}}
+					<hr>Type
+					<br>{{form.kind}}
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 865px;">
+			<div id="table-short">
+				<button class="btn btn-success  btn" form="form1" type="submit">Create</button></input>
+			</div>
+
+			<div id="table-short">
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'edocboard' %}">Back</a>
+		</div>
+</div>
+
+{% endblock %}

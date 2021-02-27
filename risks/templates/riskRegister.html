@@ -1,0 +1,236 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+	font-family: 'Quicksand', sans-serif;
+}
+
+#table-title2{
+	background-color: #7a1321;
+	color: white;
+	font-size:13px;
+	text-align: center;
+	font-family: 'Quicksand', sans-serif;
+}
+
+#table-search-title{
+	background-color: #3c7690;
+	color: white;
+	font-family: 'Quicksand', sans-serif;
+}
+
+#table-short {
+  height: 700px;
+  overflow-y: auto;
+  font-family: 'Quicksand', sans-serif;
+}
+
+#table-search {
+  height: 200px;
+  font-size:12px;
+  overflow-y: auto;
+  font-family: 'Quicksand', sans-serif;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+	font-family: 'Quicksand', sans-serif;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+	font-family: 'Quicksand', sans-serif;
+}
+
+</style>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="col-12">
+			<div class="card text-center mb-3" style="background-color: white">
+			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
+			  		<h5 class="card-title">STATS</h5>
+				</div>
+				<div id="table-search">
+					<table class="table table-responsive-lg">
+						
+						<form method="get">
+							<br>
+							<h4>Total Risks: {{total_risks}}</h4>
+							<hr>
+							<h4>Current Risks: {{O_risks}}</h4>
+							<hr>
+							<h4>Closed Risks: {{C_risks}}</h4>
+							</form>
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	{% if request.user.is_staff %}
+	<div class="col">
+		<div class="col-12">
+			<div class="card text-center mb-3" style="background-color: white">
+			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
+			  		<h5 class="card-title"><button form = "form2" class="btn btn-success" type="submit">Create</button></h5>
+				</div>
+				<div id="table-search">
+					<table class="table table-responsive-lg">
+						<form id="form2" action="" method="POST">						
+							{% csrf_token %}
+							{{form.as_table}}
+							</form>
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="col-lg">
+			<div class="card text-center mb-3">
+			  	<div class="card-header"  id="table-title1">
+			  		<h5 style="font-weight: bolder; " class="card-title">RISK REGISTER</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" class="table table-responsive-lg">
+					<thead>
+						<tr id="table-title1">
+							<th>ID</th>
+							<th>Title</th>
+							<th>Description / Project</th>
+							<th>Category</th>
+							<th>Probability</th>
+							<th>Impact</th>
+							<th>Priority</th>
+							<th>Effect</th>
+							<th>Owner</th>
+							<th>Risk Response Plan</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Closed</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for r in risks %}
+						{% if r.status == 'Open' or r.status == 'Inprogress' %}
+						<tr id="table-font" >
+							<td>{{r.id}}</td>
+							<td>{{r.title}}</td>
+							<td>{{r.description}} ~Project: {{r.pName}}~</td>
+							<td>{{r.category}}</td>
+							<td>{{r.probability}}</td>
+							<td>{{r.impact}}</td>
+							<td>{{r.priority}}</td>
+							<td>{{r.effect}}</td>
+							<td>
+							{% for owner in r.owner.all %}
+
+								{{owner}},
+
+							{% endfor %}
+							</td>
+							<td>{{r.rrp}}</td>
+							<td>{{r.dateCreated}}</td>
+							<td>{{r.dateUpdated}}</td>
+							<td>{{r.dateFinished}}</td>
+							<td>{{r.status}}</td>
+							{% if request.user.is_staff %}
+							<td class="container" style="width: 10px;"><a class="btn btn-outline-success btn-block fa fa-refresh fa-lg" href="{% url 'risku' r.id %}"></a>
+								<a class="btn btn-outline-danger btn-block fa fa-trash-o fa-lg" href="{% url 'riskd' r.id %}"></a></td>
+							{% endif %}
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col">
+		<div class="col-lg">
+			<div class="card text-center text-white  mb-3">
+			  	<div class="card-header" id="table-title2">
+			  		<h5 style="font-weight: bolder; " class="card-title" >CONCLUDED RISKS</h5>
+				</div>
+			  	<div id="table-short">
+					<table class="table table-striped table-bordered projects" class="table table-responsive-lg">
+					<thead>
+						<tr id="table-title2">
+							<th>ID</th>
+							<th>Title</th>
+							<th>Description / Project</th>
+							<th>Category</th>
+							<th>Probability</th>
+							<th>Impact</th>
+							<th>Priority</th>
+							<th>Effect</th>
+							<th>Owner</th>
+							<th>Risk Response Plan</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Closed</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+						{% for r in risks %}
+						{% if r.status == 'Closed' %}
+					<tbody id="table-font" >
+						<tr>
+							<td>{{r.id}}</td>
+							<td>{{r.title}}</td>
+							<td>{{r.description}} ~Project: {{r.pName}}~</td>
+							<td>{{r.category}}</td>
+							<td>{{r.probability}}</td>
+							<td>{{r.impact}}</td>
+							<td>{{r.priority}}</td>
+							<td>{{r.effect}}</td>
+						<td>
+								{% for owner in r.owner.all %}
+									{{owner}}, 
+								{% endfor %}
+						</td>
+							<td>{{r.rrp}}</td>
+							<td>{{r.dateCreated}}</td>
+							<td>{{r.dateUpdated}}</td>
+							<td>{{r.dateFinished}}</td>
+							<td>{{r.status}}</td>
+							{% if request.user.is_staff %}
+							<td class="container" style="width: 10px;" ><a class="btn btn-outline-success btn-block fa fa-trash-o fa-lg " href="{% url 'risku' r.id %}"></a>
+								<a class="btn btn-outline-danger btn-block fa fa-refresh fa-lg" href=""></a></td>
+							{% endif %}
+						</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+					</table>		    	
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

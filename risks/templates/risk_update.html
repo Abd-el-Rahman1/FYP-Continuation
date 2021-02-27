@@ -1,0 +1,64 @@
+{%  extends 'Base.html' %}
+{% block content %}
+<style>
+	#card-title{
+		background-color: #17ac1f;
+		color: white;
+		font-size:13px;
+		text-align: center;
+	}
+</style>
+
+<br>
+<div class="container">
+	<div class="row">
+		<div class="card-header mb-3 text-center" id=card-title>
+			<h5  class="card-title">RISK UPDATE</h5>
+		</div>	
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+				<form action="" method="POST" id="form1">
+					{% csrf_token %}
+					<hr>Title
+					<br>{{form.title}}
+					<hr>Category
+					<br>{{form.category}}
+					<hr>Status
+					<br>{{form.status}}
+					<hr>Description
+					<br>{{form.description}}			
+			</div>
+		</div>
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+					<hr>Priority
+					<br style="margin-bottom: 5px;">{{form.priority}}
+					<hr>Owner
+					<br style="margin-bottom: 5px;">{{form.owner}}
+					<hr>RRP
+					<br>{{form.rrp}}
+			</div>
+		</div>
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+					<hr>Probability
+					<br>{{form.probability}}
+					<hr>Impact
+					<br style="margin-bottom: 80px;">{{form.impact}}
+					<hr>Effect
+					<br>{{form.effect}}
+				</form>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 465px;">
+	<div id="table-short">
+		<button class="btn btn-success  btn" form="form1" type="submit">Update</button></input>
+	</div>
+
+	<div id="table-short">
+		<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'risk' %}">Cancle</a>
+	</div>
+</div>
+{% endblock %}

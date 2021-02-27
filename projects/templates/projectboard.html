@@ -1,0 +1,102 @@
+{%  extends 'Base.html' %}
+
+{% block content %}
+
+<style>
+	#table-short {
+		height: 400px;
+		overflow-y: auto;
+	}
+	
+	#table-font{
+		font-size:13px;
+		text-align: left;
+	}
+</style>
+
+<br>
+	<div class="row">
+		</div>
+			<div class="col-md-6">
+				<form>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="col-md-6">
+			<h5>ACTIVE PROJECTS:</h5>
+			<div class="card card-body" id="table-short">
+				<table class="table table-sm">
+					<tr>
+						<th>Name</th>
+						<th>Manager</th>
+						<th>Description</th>
+						<th>Active</th>
+						<th>Start</th>
+						<th>Deadline</th>
+						<th>Finish</th>
+						<th></th>
+					</tr>
+					{% for p in projects %}
+					{% if p.finished == False %}
+					<tr id="table-font" >
+						<td>{{p.name}}</td>
+						<td>{{p.manager}}</td>
+						<td>{{p.description}}</td>
+						<td>{{p.finished}}</td>
+						<td>{{p.dateCreated}}</td>
+						<td>{{p.deadline}}</td>
+						<td>{{p.dateFinished}}</td>
+						<th><a class="btn btn-outline-info  btn-block" href="">View</a><hr>
+							<a class="btn btn-outline-success  btn-block" href="">Update</a><hr>
+							<a class="btn btn-outline-danger  btn-block" href="">Delete</a></th>
+					</tr>
+					{%endif%}
+					{%endfor%}
+				</table>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<h5>COMPLETED PROJECTS:</h5>
+			<div class="card card-body" id="table-short">
+			<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Manager</th>
+					<th>Description</th>
+					<th>Active</th>
+					<th>Start</th>
+					<th>Deadline</th>
+					<th>Finish</th>
+					<th></th>
+				</tr>
+				{% for p in projects %}
+				{% if p.finished == True %}
+				<tr id="table-font" >
+					<td>{{p.name}}</td>
+					<td>{{p.manager}}</td>
+					<td>{{p.description}}</td>
+					<td>{{p.finished}}</td>
+					<td>{{p.dateCreated}}</td>
+					<td>{{p.deadline}}</td>
+					<td>{{p.dateFinished}}</td>
+					<th><a class="btn btn-outline-info  btn-block" href="">View</a><hr>
+						<a class="btn btn-outline-success  btn-block" href="">Update</a><hr>
+						<a class="btn btn-outline-danger  btn-block" href="">Delete</a></th>
+				</tr>
+				{%endif%}
+				{%endfor%}
+			</table>
+		</div>
+	</div>
+</div>
+	
+</div>
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+{%  extends 'Base.html' %}
+{% block content %}
+<br>
+<div class="row">
+	<div class="card mx-auto">
+		<div class="card card-body">
+			<h1>PROJECT UPDATE</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="container">
+	<div class="row">	
+			<div class="card mb-3 card-body text-center">
+				<div id="table-short">
+					<form action="" method="POST" id="form1">
+						{% csrf_token %}
+						<hr>Title
+						<br>{{form.name}}
+						<hr>Deadline
+						<br>{{form.deadline}}
+						<hr>Budget
+						<br style="margin-bottom: 63px;">{{form.budget}}
+						<hr>Description
+						<br>{{form.description}}			
+				</div>
+			</div>
+			<div class="card mb-3 card-body text-center">
+				<div id="table-short">
+						<hr>Scope
+						<br>{{form.scope}}
+						<hr>Business Case
+						<br>{{form.businessCase}}
+				</div>
+			</div>
+			<div class="card mb-3 card-body text-center">
+				<div id="table-short">
+						<hr>Team
+						<br>{{form.team}}
+						<hr>Finished (tick box)
+						<br>{{form.finished}}
+						<hr>Sponsors
+						<br>{{form.sponsors}}
+						<hr>Date Created
+						<br>{{form.dateCreated}}
+						<hr>Date Updated
+						<br>{{form.dateUpdated}}
+						<hr>Date Finished
+						<br>{{form.dateFinished}}
+					</form>
+				</div>
+			</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 865px;">
+			<div id="table-short">
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'projectCreate' %}">Back</a>
+		</div>
+</div>
+
+{% endblock %}

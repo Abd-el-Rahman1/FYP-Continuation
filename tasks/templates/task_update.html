@@ -1,0 +1,49 @@
+{%  extends 'Base.html' %}
+{% block content %}
+<br>
+<div class="row">
+	<div class="card mx-auto">
+		<div class="card card-body">
+			<h1>TASK UPDATE</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="container">
+	<div class="row">	
+			<div class="card mb-3 card-body text-center">
+				<div id="table-short">
+					<form action="" method="POST" id="form1">
+						{% csrf_token %}
+						<hr>Title
+						<br>{{form.title}}
+						<hr>Deadline
+						<br>{{form.deadline}}
+						<hr>Team
+						<br>{{form.team}}
+			
+				</div>
+			</div>
+			<div class="card mb-3 card-body text-center">
+				<div id="table-short">
+						<hr>Finished (tick box)
+						<br style="margin-bottom: 6px;">{{form.finished}}
+						<hr>Description
+						<br>{{form.description}}
+					</form>
+				</div>
+			</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 865px;">
+			<div id="table-short">
+				<button class="btn btn-success  btn" form="form1" type="submit">Update</button></input>
+			</div>
+
+			<div id="table-short">
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'taskCreate' %}">Cancle</a>
+		</div>
+</div>
+
+{% endblock %}

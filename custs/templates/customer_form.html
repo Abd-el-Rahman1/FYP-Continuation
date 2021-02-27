@@ -1,0 +1,59 @@
+{%  extends 'Base_cust.html' %}
+
+{% block content %}
+<br>
+<div class="row">
+	<div class="col">
+		<div class="col-12">
+			<div class="card text-center mb-3" style="background-color: rgb(255, 255, 255)">
+			  	<div class="card-header" style="height: 3.5rem; background-color: rgb(54, 180, 54); padding-bottom: 60px;">
+				  <h1 style="color:rgb(255, 255, 255);">Customer Form</h1>
+				</div>
+				<div id="table-search">
+					<p style="padding-left: 10px; text-align: left;">Please fill in the form below with detailed information.</p>
+					<table class="table table-responsive-lg">
+						<form id="form" action="" method="POST">						
+							{% csrf_token %}	
+							<div id="table-short">
+								<form action="" method="POST" id="form1">
+									{% csrf_token %}
+									<hr>Name
+									<br>{{form.name}}
+									<hr>Phone
+									<br>{{form.phone}}
+									<hr>Email
+									<br>{{form.email}}
+									<hr>Age
+									<br>{{form.age}}
+									<hr>address
+									<br>{{form.address}}
+									<hr>Where did you hear about us?
+									<br>{{form.source}}
+									<hr>Problem
+									<br>{{form.problem}}
+						</form>
+					</table>
+			  	</div>
+			  	<h5 class="card-title"><button form = "form" class="btn btn-success" type="submit">Send Complaint</button></h5>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Home: <a style="color: rgb(0, 0, 0); " href="info@apu.edu.my">www.apu.edu.my</a></p>
+			<p>Email: <a style="color: rgb(0, 0, 0); " href="info@apu.edu.my">info@apu.edu.my</a></p>
+			<p>Phone: +603 8996 1000</p>
+			<br>
+			<p style="padding-left: 55px;">1 300 888 278 (Toll-free)</p>
+			<p>Address: Asia Pacific University of Technology & Innovation (APU) Technology Park Malaysia Bukit Jalil, Kuala Lumpur 57000</p>
+			<p style="padding-left: 55px;">Malaysia.</p>
+		</div>
+	</div>
+</div>
+<br>
+
+{% endblock %}

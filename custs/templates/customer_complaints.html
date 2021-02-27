@@ -1,0 +1,145 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-title2{
+	background-color: #7a1321;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-short {
+  height: 600px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+<div class="row ">
+	<div class="col">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title1">
+				<h5 class="card-title">OPEN COMPLAINTS</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title1">
+							<th>Name</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Age</th>
+							<th>Address</th>	
+							<th>Source</th>
+							<th>Problem</th>
+							<th>Status</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for c in custs %}
+						{% if c.status != 'Closed' %}
+						<tr >
+							<td>{{c.name}}</td>	
+							<td>{{c.phone}}</td>
+							<td>{{c.email}}</td>
+							<td>{{c.age}}</td>
+							<td>{{c.address}}</td>
+							<td>{{c.source}}</td>
+							<td>{{c.problem}}</td>
+							<td>{{c.status}}</td>
+							<td>{{c.dateCreated}}</td>
+							<td>{{c.dateUpdated}}</td>
+							<td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'customerUpdate' c.id %}"></a>							
+								<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'customerDelete' c.id %}"></a></td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row ">
+	<div class="col">
+		<div class="card text-center mb-3">
+			<div class="card-header"  id="table-title2">
+				<h5 class="card-title">CLOSED COMPLAINTS</h5>
+			</div>
+			<div id="table-short">
+				<table class="table table-striped table-bordered projects" style="width: 100%">
+					<thead>
+						<tr id="table-title2">
+							<th>Name</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Age</th>
+							<th>Address</th>	
+							<th>Source</th>
+							<th>Problem</th>
+							<th>Status</th>
+							<th>Created</th>
+							<th>Updated</th>
+							<th>Closed</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="table-font" >
+					{% for c in custs %}
+						{% if c.status == 'Closed' %}
+						<tr >
+							<td>{{c.name}}</td>	
+							<td>{{c.phone}}</td>
+							<td>{{c.email}}</td>
+							<td>{{c.age}}</td>
+							<td>{{c.address}}</td>
+							<td>{{c.source}}</td>
+							<td>{{c.problem}}</td>
+							<td>{{c.status}}</td>
+							<td>{{c.dateCreated}}</td>
+							<td>{{c.dateUpdated}}</td>
+							<td>{{c.dateFinished}}</td>
+							<td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'customerUpdate' c.id %}"></a>							
+								<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'customerDelete' c.id %}"></a></td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

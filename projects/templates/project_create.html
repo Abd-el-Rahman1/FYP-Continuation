@@ -1,0 +1,247 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-title2{
+	background-color: #7a1321;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-search-title{
+	background-color: #3c7690;
+	color: white;
+}
+
+#table-short {
+  height: 800px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+<div class="row">
+		<div class="col">
+			<div class="card text-center mb-3">
+			  	<div class="card-header"  id="table-title1">
+			  		<h5 class="card-title"> CURRENT PROJECTS</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" style="width: 100%">
+						<thead>
+							<tr id="table-title1">
+								<th>Name</th>
+								<th>Starter</th>
+								<th>Details</th>
+								<th>Team</th>
+								<th>Budget</th>
+								<th>Started</th>
+								<th>Deadline</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+						{% for p in projects %}
+							{% if p.finished == False %}
+								{% if request.user.is_staff %}
+									<tr >
+									<td>{{p.name}}</td>
+									<td>{{p.creator}}, </td>
+									<td>{{p.description}}</td>
+									<td>
+									{% for team in p.team.all %}
+										{{team}},
+									{% endfor %}
+									</td>
+									<td>{{p.budget}}</td>
+									<td>{{p.dateCreated}}</td>
+									<td>{{p.deadline}}</td>
+										<td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+										<a class="btn btn-outline-info  btn-block fa fa-eye fa-lg" aria-hidden="true" href="{% url 'projectView' p.id %}"></a>
+										<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+									</tr>
+								{% else %}
+									{% for team in p.team.all %}
+										{% if team == request.user or creator == request.user %}
+										<tr >
+											<td>{{p.name}}</td>
+											<td>{{p.creator}}, </td>
+											<td>{{p.description}}</td>
+											<td>
+											{% for team in p.team.all %}
+												{{team}},
+											{% endfor %}
+											</td>
+											<td>{{p.budget}}</td>
+											<td>{{p.dateCreated}}</td>
+											<td>{{p.deadline}}</td>
+											{% if request.user.is_staff %}
+												<td class="container" style="width: 10px;"><a class="btn btn-outline-success  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+												<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+											{% else %}
+											<td class="container" style="width: 10px;"><a class="btn btn-outline-info  btn-block fa fa-eye fa-lg" aria-hidden="true" href="{% url 'projectView' p.id %}"></a></td>
+											{% endif %}
+										</tr>
+										{% endif %}
+									{% endfor %}
+									
+								{% endif %}	
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+							
+						</tfoot>
+						
+						
+					</table>
+			  	</div>
+			</div>
+		</div>
+	{% if request.user.is_staff %}
+	<div class="col-3">
+			<div class="card text-center" style="background-color: white">
+			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
+			  		<h5 class="card-title"><button form = "form2" class="btn btn-success" type="submit">Create</button></h5>
+				</div>
+				<div id="table-search">
+					<table class="table table-responsive-lg">
+						<form id="form2" action="" method="POST">						
+							{% csrf_token %}
+							<table>
+								Title
+								<br>{{form.name}}
+								<hr>Deadline
+								<br>{{form.deadline}}
+								<hr>Budget
+								<br>{{form.budget}}
+								<hr>Description
+								<br>{{form.description}}
+								<hr>Team
+								<br>{{form.team}}
+								<hr>Scope
+								<br>{{form.scope}}
+								<hr>Business Case
+								<br>{{form.businessCase}}
+								<hr>Sponsors
+								<br>{{form.sponsors}}
+							</table>			
+							</form>
+					</table>
+			  	</div>
+			</div>
+	</div>
+	{% endif %}
+</div>
+	
+<br>
+<div class="row">
+		<div class="col">
+			<div class="card text-center mb-3">
+				<div class="card-header"  id="table-title2">
+					<h5 class="card-title"> Finished Projects</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-bordered projects">
+						<thead>
+							<tr id="table-title2">
+								<th>Name</th>
+								<th>Starter</th>
+								<th>Details</th>
+								<th>Team</th>
+								<th>Budget</th>
+								<th>Started</th>
+								<th>Deadline</th>
+								<th>Completed</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+							{% for p in projects %}
+							{% if p.finished == True %}
+								{% if request.user.is_staff %}
+									<tr >
+									<td>{{p.name}}</td>
+									<td>{{p.creator}}, </td>
+									<td>{{p.description}}</td>
+									<td>
+									{% for team in p.team.all %}
+										{{team}},
+									{% endfor %}
+									</td>
+									<td>{{p.budget}}</td>
+									<td>{{p.dateCreated}}</td>
+									<td>{{p.deadline}}</td>
+									<td>{{p.dateFinished}}</td>
+									{% if request.user.is_staff %}
+										<td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+										<a class="btn btn-outline-info  btn-block fa fa-eye fa-lg" aria-hidden="true" href="{% url 'projectView' p.id %}"></a>
+										<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+									{% endif %}
+									</tr>
+								{% else %}
+									{% for team in p.team.all %}
+										{% if team == request.user or creator == request.user %}
+										<tr >
+											<td>{{p.name}}</td>
+											<td>{{p.creator}}, </td>
+											<td>{{p.description}}</td>
+											<td>
+											{% for team in p.team.all %}
+												{{team}},
+											{% endfor %}
+											</td>
+											<td>{{p.budget}}</td>
+											<td>{{p.dateCreated}}</td>
+											<td>{{p.deadline}}</td>
+											<td>{{p.dateFinished}}</td>
+											{% if request.user.is_staff %}
+												<td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+												<a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+											{% else %}
+											<td class="container" style="width: 10px;"><a class="btn btn-outline-info  btn-block fa fa-eye fa-lg" aria-hidden="true" href="{% url 'projectView' p.id %}"></a></td>
+											{% endif %}
+										</tr>
+										{% endif %}
+									{% endfor %}
+									
+								{% endif %}	
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+							
+						</tfoot>
+						
+						
+					</table>
+				</div>
+			</div>
+		</div>
+</div>
+
+{% endblock %}

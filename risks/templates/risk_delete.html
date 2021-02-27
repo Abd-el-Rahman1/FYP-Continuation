@@ -1,0 +1,20 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body text-center">
+			<p>Are you sure you want to delete "{{risks.title}}"" ?</p>
+			<br>
+			<form action="" method="POST">
+				{% csrf_token %}
+				<a class="btn btn-warning  btn-small" href="{% url 'risk' %}">Cancel</a>
+				<button class="btn btn-danger  btn-small" type="submit">Confirm and Delete</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

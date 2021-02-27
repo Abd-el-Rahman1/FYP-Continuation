@@ -1,0 +1,172 @@
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-title2{
+	background-color: #7a1321;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-search-title{
+	background-color: #3c7690;
+	color: white;
+}
+
+#table-short {
+  height: 800px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+<div class="container">
+	<div class="card text-center mb-3">
+		<td class="container" style="width: 10px;"><a class="btn btn-success  btn-block fa fa-plus fa-lg" aria-hidden="true" href="{% url 'reportCreate'%}"> Create Report</a></td>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="col">
+			<div class="card text-center mb-3">
+			  	<div class="card-header"  id="table-title1">
+			  		<h5 class="card-title">Open Reports</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" style="width: 100%">
+						<thead>
+							<tr id="table-title1">
+								<th>Creator</th>
+								<th>Auditee</th>
+								<th>Location</th>
+								<th>Area Audited</th>
+								<th>Type</th>
+								<th>Comments</th>
+								<th>Deadline</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+						{% for r in reports %}
+							{% if r.closed == False %}
+									<tr >
+									<td>{{r.creator}}</td>
+									<td>
+										{% for auditee in r.auditee.all %}
+											{{auditee}},
+										{% endfor %}
+									</td>	
+									<td>{{r.location}}, </td>
+									<td>{{r.areaAudited}}</td>
+									<td>{{r.NCR_or_OFI}}</td>
+									<td>{{r.comment}}</td>
+									<td>{{r.deadline}}</td>
+									<td>{{r.dateCreated}}</td>
+									<td>{{r.dateUpdated}}</td>
+										<td class="container" style="width: 10px;"><a class="btn btn-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'reportUpdate' r.id %}"></a>
+										<a class="btn btn-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'reportDelete' r.id %}"></a></td>
+									</tr>
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+							
+						</tfoot>
+						
+						
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<br>
+<div class="row">
+	<div class="col">
+		<div class="col">
+			<div class="card text-center mb-3">
+				<div class="card-header"  id="table-title2">
+					<h5 class="card-title">Colsed Reports</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-bordered projects">
+						<thead>
+							<tr id="table-title2">
+								<th>Creator</th>
+								<th>Auditee</th>
+								<th>Location</th>
+								<th>Area Audited</th>
+								<th>Type</th>
+								<th>Comments</th>
+								<th>Deadline</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Finished</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+							{% for r in reports %}
+								{% if r.closed == True %}
+										<tr >
+										<td>{{r.creator}}</td>
+										<td>
+											{% for auditee in r.auditee.all %}
+												{{auditee}},
+											{% endfor %}
+										</td>	
+										<td>{{r.location}}, </td>
+										<td>{{r.areaAudited}}</td>
+										<td>{{r.NCR_or_OFI}}</td>
+										<td>{{r.comment}}</td>
+										<td>{{r.deadline}}</td>
+										<td>{{r.dateCreated}}</td>
+										<td>{{r.dateUpdated}}</td>
+										<td>{{r.dateFinished}}</td>
+											<td class="container" style="width: 10px;"><a class="btn btn-warning btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'reportUpdate' r.id %}"></a>
+											<a class="btn btn-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'reportDelete' r.id %}"></a></td>
+										</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							
+						</tfoot>
+						
+						
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
