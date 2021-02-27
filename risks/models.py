@@ -10,7 +10,7 @@ class Risk(models.Model):
 
     STATUS_CHOICE =(
         ('Open', 'Open'),
-        ('Inprogress', 'Inprogress'),
+        ('In progress', 'In progress'),
         ('Closed', 'Closed'),
     )
     PRIORITY_CHOICE =(

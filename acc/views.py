@@ -157,38 +157,21 @@ def perPersonChart(request):
     
     return JsonResponse(data2)
 
-
 @login_required(login_url='login')
-def totalP(request):
-    #filtered_object = Point.objects.filter(pointOwner = request.user.id)
-    pobj1 = Point.objects.annotate(month=ExtractMonth('dateCreated')).values('month').annotate(count=Count('dateCreated'))
-    pobj2 = Point.objects.filter(pointOwner = request.user.id).annotate(month=ExtractMonth('dateCreated')).values('month').annotate(count=Count('dateCreated'))
+def riskPer(request):
+    risks = Risk.objects.all()
 
-    ps1 = []  
-    for p in pobj1:
-        keys, values = zip(*p.items())
-        ps1.append(values)
+    risksO = risks.filter(status='Open').count()
+    risksI = risks.filter(status = 'In progress').count()
+    risksC = risks.filter(status='Closed').count()
 
-    month, count = map(list, zip(*ps1))
-    data1={
-        "months": month,
-        "performance": count
+    print (risksO)
+
+    riskslist={
+        "open": risksO,
+        "in_prog": risksI,
+        "closed": risksC
     }
-
-    ps2 = [] 
-    for p in pobj2:
-        keys, values = zip(*p.items())
-        ps2.append(values)
-
-    month, count = map(list, zip(*ps2))
-    data2={
-        "months": month,
-        "performance": count
-    }
-
-    total={
-        "pref1": data1,
-        "pref2": data2
-    }
+    print (riskslist)
     
-    return JsonResponse(total)
+    return JsonResponse(riskslist)
