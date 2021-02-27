@@ -175,7 +175,6 @@ def totalP(request):
         "performance": count
     }
 
-
     ps2 = [] 
     for p in pobj2:
         keys, values = zip(*p.items())

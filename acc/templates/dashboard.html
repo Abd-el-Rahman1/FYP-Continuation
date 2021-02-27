@@ -74,21 +74,61 @@
 		<div class="col-sm-3">
 			<h5>TOTAL ACTIVE PROCESSES:</h5>
 			<hr>	
-			<br>
-			<h4>Total Reports: {{reportsT}}</h4>
+			<h4>Reports: {{reportsT}}</h4>
 			<hr>
-			<h4>Total Risks: {{risksT}}</h4>
+			<h4>Risks: {{risksT}}</h4>
 			<hr>
-			<h4>Total Documents: {{docsT}}</h4>
+			<h4>Documents: {{docsT}}</h4>
 			<hr>
-			<h4>Total Projects: {{pobjsT}}</h4>
+			<h4>Projects: {{pobjsT}}</h4>
 			<hr>
-			<h4>Total Tasks: {{tasksT}}</h4>
+			<h4>Tasks: {{tasksT}}</h4>
 			<hr>
-			<h4>Total Inprogress Complaints: {{custsT}}</h4>
+			<h4>Inprogress Complaints: {{custsT}}</h4>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="row">
+		<div class="col-sm-3">	
+			<h5>GENERAL PERFORMANCE:</h5>
 			<hr>
-			<h4>Total Action You Preformed: {{pointsT}}</h4>
-			
+			<div class="card card-body">
+				<div id="myChart"></div>
+	
+			</div>
+		</div>
+		<div class="col-sm-3">	
+			<h5>YOUR PERFORMANCE:</h5>
+			<hr>
+			<div class="card card-body">
+				<div id="UserChart"></div>
+	
+			</div>
+		</div>
+		<div class="col-sm-3">	
+			<h5>YOUR PERFORMANCE OVER TOTAL:</h5>
+			<hr>
+			<div class="card card-body">
+				<div id="TotalP"></div>
+	
+			</div>
+		</div>
+
+		<div class="col-sm-3">
+			<h5>TOTAL ACTIVE PROCESSES:</h5>
+			<hr>	
+			<h4>Reports: {{reportsT}}</h4>
+			<hr>
+			<h4>Risks: {{risksT}}</h4>
+			<hr>
+			<h4>Documents: {{docsT}}</h4>
+			<hr>
+			<h4>Projects: {{pobjsT}}</h4>
+			<hr>
+			<h4>Tasks: {{tasksT}}</h4>
+			<hr>
+			<h4>Inprogress Complaints: {{custsT}}</h4>
 		</div>
 	</div>
 </div>
@@ -249,7 +289,7 @@
 		zingchart.render({
 			id: "myChart",
 			data:chartData,
-			height: 400,
+			height: 300,
       		width: "100%"
 		})
 	}
@@ -303,7 +343,7 @@
 		zingchart.render({
 			id: "UserChart",
 			data:chartData2,
-			height: 400,
+			height: 300,
       		width: "100%"
 		})
 	}
@@ -337,7 +377,7 @@
 		zingchart.render({
 			id: "TotalP",
 			data:chartData3,
-			height: 400,
+			height: 300,
       		width: "100%"
 		})
 	}
