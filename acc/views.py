@@ -60,29 +60,22 @@ def logoutSite(request):
     ###
 
 def userPage(request):
-    risks = Risk.objects.all()
-    docs = Doc.objects.all()
-    reports = Report.objects.all()
     pobjs = Project.objects.all()
     tasks = Task.objects.all()
     custs = Customer.objects.all()
     points = Point.objects.all()
 
-    risksT = risks.filter(status='Open').count() + risks.filter(status = 'Inprogress').count()
-    docsT = docs.filter(dateDeleted__isnull=True).count()
-    reportsNCR = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='NCR').count()
-    reportsOFI = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='OFI').count()
-    pobjsT = pobjs.filter(finished=False).count()
-    tasksT = tasks.filter(finished=False).count()
+    pobjsF = pobjs.filter(finished=False).count()
+    pobjsT = pobjs.filter(finished=True).count()
+    tasksF = tasks.filter(finished=False).count()
+    tasksT = tasks.filter(finished=True).count()
     custsT = custs.filter(status='Inprogress').count()
     pointsT = points.filter(pointOwner=request.user.id).count()
 
     return render(request, 'user.html', {
-        'risksT': risksT,
-        'docsT': docsT,
-        'reportsNCR': reportsNCR,
-        'reportsOFI': reportsOFI,
+        'pobjsF': pobjsF,
         'pobjsT': pobjsT,
+        'tasksF': tasksF,
         'tasksT': tasksT,
         'pobjs': pobjs,
         'tasks': tasks,

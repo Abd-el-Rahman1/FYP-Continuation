@@ -32,16 +32,14 @@
 
 </style>
 <br>
-<div style="margin-bottom: 10px;" class="container mx-auto w-50px">
-
+<div class="container">
+	<div class="card text-center mb-3">
+		<td class="container" style="width: 10px;"><a class="btn btn-success  btn-block fa fa-plus fa-lg" aria-hidden="true" href="{% url 'docAdminCreate'%}"> Create New Entry</a></td>
+	</div>
 </div>
-<br>
-<div style="max-width: 350px; margin-bottom: 10px;" class="container mx-auto w-50px">
-	<div class="col">
-		<div style="text-align:center; " class="button-box col-lg-12">
-            <a style="font-size: medium;" class="btn btn-success  btn-block fa fa-plus fa-lg" aria-hidden="true" href="{% url 'docAdminCreate'%}"> Create New Entry</a>
-            <a style="font-size: medium;" class="btn btn-info  btn-block fa fa-ban fa-lg" aria-hidden="true" href="{% url 'completeDelete'%}"> Open Deactivated Documents</a>
-   		</div>
+<div class="container">
+	<div class="card text-center mb-3">
+		<td class="container" style="width: 10px;"><a class="btn btn-info  btn-block fa fa-eraser fa-lg" aria-hidden="true" href="{% url 'completeDelete'%}"> Open Deactivated Documents</a></td>
 	</div>
 </div>
 

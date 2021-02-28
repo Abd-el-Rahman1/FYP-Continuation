@@ -21,6 +21,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          <li style="margin-right: 50px; color: white !important;" class="nav-item">
+            <h4 aria-current="page">Quality Management System</a>
+          </li>
+          
           {% if request.user.is_staff or request.user.is_staff %}
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'home' %}">Dashboard</a>
@@ -54,9 +58,11 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cust_form' %}">customer Form (for testing and viewing by marker only)</a>
           </li>
+          <li  class="nav-item">
+            <a style="margin-left: 150px; color: rgb(189, 45, 45) !important;" class="nav-link" href="{% url 'logout'%}">LOGOUT: {{request.user}}</a>
+          </li>
         </ul>
       </div>
     </div>
-    <span id="name">{{request.user}}</span>
-    <span ><a id="logout" href="{% url 'logout'%}">LOGOUT</a></span>
+    
   </nav>

@@ -63,125 +63,134 @@
 	
 			</div>
 		</div>
-
-		<div class="col-sm-3">
-			<h5>TOTAL ACTIVE PROCESSES:</h5>
-			<hr>	
-			<h4>Reports: {{reportsT}}</h4>
+		<div class="col-sm-3">	
+			<h5>CUSTOMER COMPLAINTS STATUS:</h5>
 			<hr>
-			<h4>Risks: {{risksT}}</h4>
-			<hr>
-			<h4>Documents: {{docsT}}</h4>
-			<hr>
-			<h4>Projects: {{pobjsT}}</h4>
-			<hr>
-			<h4>Tasks: {{tasksT}}</h4>
-			<hr>
-			<h4>Complaints: {{custsT}}</h4>
-		</div>
-	</div>
-</div>
-
-
-
-<br>
-<br>
-<div class="row">
-	<div class="col md-6">
-		<div class="card text-center mb-3">
-			<div class="card-header"  id="table-title1">
-				<h5 class="card-title"> CURRENT PROJECTS</h5>
-			</div>
-			<div id="table-short">
-				<table class="table table-striped table-bordered projects" style="width: 100%">
-					<thead>
-						<tr id="table-title1">
-							<th>Name</th>
-							<th>Starter</th>
-							<th>Team</th>
-							<th>Started</th>
-							<th>Deadline</th>
-						</tr>
-					</thead>
-					<tbody id="table-font" >
-					{% for p in pobjs %}
-						{% if p.finished == False %}
-							{% for team in p.team.all %}
-								{% if team == request.user or creator == request.user %}
-									<tr >
-									<td>{{p.name}}</td>
-									<td>{{p.creator}}, </td>
-									<td>
-									{% for team in p.team.all %}
-										{{team}},
-									{% endfor %}
-									</td>
-									<td>{{p.dateCreated}}</td>
-									<td>{{p.deadline}}</td>
-								{% endif %}
-							{% endfor %}		
-						{% endif %}
-					{% endfor %}
-					</tbody>
-					<tfoot>
-						
-					</tfoot>
-					
-					
-				</table>
+			<div class="card card-body">
+				<div id="CustsPie"></div>
+	
 			</div>
 		</div>
-	</div>
-	<div class="col md-6">
-		<div class="card text-center mb-3">
-			<div class="card-header"  id="table-title2">
-				<h5 class="card-title"> CURRENT TASKS</h5>
+		<div class="col-sm-3">	
+			<h5>CUSTOMER LOCATION:</h5>
+			<hr>
+			<div class="card card-body">
+				<div id="CustsLoc"></div>
 			</div>
-			<div id="table-short">
-				<table class="table table-striped table-bordered projects" style="width: 100%">
-					<thead>
-						<tr id="table-title2">
-							<th>Name</th>
-							<th>Project</th>
-							<th>Starter</th>
-							<th>Team</th>
-							<th>Started</th>
-							<th>Deadline</th>
-							<th>Completed</th>
-						</tr>
-					</thead>
-					<tbody id="table-font" >
-					{% for t in tasks %}
-						{% if t.finished == False %}
-							{% for team in t.team.all %}
-								{% if team == request.user or creator == request.user %}
-								<tr >
-									<td>{{t.title}}</td>
-									<td>{{t.project}}</td>
-									<td>{{t.creator}}, </td>
-									<td>
+		</div>
+		
+		
+	</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="card text-center">
+					<div class="card-header"  id="table-title2">
+						<h5 class="card-title"> CURRENT TASKS</h5>
+					</div>
+					<div id="table-short">
+						<table class="table table-striped table-bordered projects" style="width: 100%">
+							<thead>
+								<tr id="table-title2">
+									<th>Name</th>
+									<th>Project</th>
+									<th>Starter</th>
+									<th>Team</th>
+									<th>Started</th>
+									<th>Deadline</th>
+									<th>Completed</th>
+								</tr>
+							</thead>
+							<tbody id="table-font" >
+							{% for t in tasks %}
+								{% if t.finished == False %}
 									{% for team in t.team.all %}
-										{{team}},
-									{% endfor %}
-									</td>
-									<td>{{t.dateCreated}}</td>
-									<td>{{t.deadline}}</td>
-									<td>{{t.dateFinished}}</td>
+										{% if team == request.user or creator == request.user %}
+										<tr >
+											<td>{{t.title}}</td>
+											<td>{{t.project}}</td>
+											<td>{{t.creator}}, </td>
+											<td>
+											{% for team in t.team.all %}
+												{{team}},
+											{% endfor %}
+											</td>
+											<td>{{t.dateCreated}}</td>
+											<td>{{t.deadline}}</td>
+											<td>{{t.dateFinished}}</td>
+										{% endif %}
+									{% endfor %}		
 								{% endif %}
-							{% endfor %}		
-						{% endif %}
-					{% endfor %}
-					</tbody>
-					<tfoot>
-						
-					</tfoot>
-					
-					
-				</table>
+							{% endfor %}
+							</tbody>
+							<tfoot>
+								
+							</tfoot>
+							
+							
+						</table>
+					</div>
+				</div>
 			</div>
+			<div class="col-sm-3">
+				<div class="card text-center">
+					<div class="card-header"  id="table-title1">
+						<h5 class="card-title"> CURRENT PROJECTS</h5>
+					</div>
+					<div id="table-short">
+						<table class="table table-striped table-bordered projects" style="width: 100%">
+							<thead>
+								<tr id="table-title1">
+									<th>Name</th>
+									<th>Starter</th>
+									<th>Team</th>
+									<th>Started</th>
+									<th>Deadline</th>
+								</tr>
+							</thead>
+							<tbody id="table-font" >
+							{% for p in pobjs %}
+								{% if p.finished == False %}
+									{% for team in p.team.all %}
+										{% if team == request.user or creator == request.user %}
+											<tr >
+											<td>{{p.name}}</td>
+											<td>{{p.creator}}, </td>
+											<td>
+											{% for team in p.team.all %}
+												{{team}},
+											{% endfor %}
+											</td>
+											<td>{{p.dateCreated}}</td>
+											<td>{{p.deadline}}</td>
+										{% endif %}
+									{% endfor %}		
+								{% endif %}
+							{% endfor %}
+							</tbody>
+							<tfoot>
+								
+							</tfoot>
+							
+							
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<h5>TOTAL ACTIVE PROCESSES:</h5>
+				<hr>	
+				<h4>Projects: {{pobjsF}}</h4><h6>closed: {{pobjsT}}</h6>
+		
+				<h4>Tasks: {{tasksF}}</h4><h6>closed: {{tasksT}}</h6>
+		
+				<h4>Complaints: {{custsT}}</h4>
+			</div>
+
 		</div>
 	</div>
 </div>
+
 
 <br>
 <div class="row">
@@ -292,7 +301,7 @@
 		zingchart.render({
 			id: "UserChart",
 			data:chartData2,
-			height: 400,
+			height: 300,
       		width: "100%"
 		})
 	}
@@ -324,7 +333,146 @@
 		zingchart.render({
 			id: "TotalP",
 			data:chartData3,
-			height: 400,
+			height: 300,
+      		width: "100%"
+		})
+	}
+	var custscount ={
+		'openl':[],
+		'in_progl':[],
+		'closedl':[],
+	}
+	var dataURL = `/customerPer/`
+	$.ajax({
+		method: 'GET',		
+		url:dataURL,
+
+		success:function(custslist){
+			console.log('RESPONSE:', custslist)
+			
+			custscount.openl.push(custslist.open)
+			custscount.in_progl.push(custslist.in_prog)
+			custscount.closedl.push(custslist.closed)
+			buildChart5()
+		}
+	})
+
+	function buildChart5(){
+		var chartData4 = {
+			"type": "pie",
+			"subtitle": {
+				"text": "Open(Green) | In Progress(Blue) | Closed(Red)"
+			},
+			"series":[
+				{
+					"values": custscount.openl,
+					'background-color': "#4cbb17",
+					"text": "Open"
+
+				},
+				{
+					"values": custscount.in_progl,
+					'background-color': "#45b6fe",
+					"text": "In Progress"
+				},
+				{
+					"values": custscount.closedl,
+					'background-color': "#d30000",
+					"text": "Closed"
+				}
+			],
+			"plot" :{
+				"animation":{
+					"effect": 2,
+					"speed": 4
+				}
+			}
+		}
+		zingchart.render({
+			id: "CustsPie",
+			data:chartData4,
+			height: 300,
+      		width: "100%"
+		})
+	}
+
+	var customerloc ={
+		'location_1':[],
+		'location_2':[],
+		'location_3':[],
+		'location_4':[],
+		'location_5':[],
+		'location_6':[],
+	}
+	var dataURL = `/customerLoc/`
+	$.ajax({
+		method: 'GET',		
+		url:dataURL,
+
+		success:function(custslocation){
+			console.log('RESPONSE:', custslocation)
+			
+			customerloc.location_1.push(custslocation.location1)
+			customerloc.location_2.push(custslocation.location2)
+			customerloc.location_3.push(custslocation.location3)
+			customerloc.location_4.push(custslocation.location4)
+			customerloc.location_5.push(custslocation.location5)
+			customerloc.location_6.push(custslocation.location6)
+			buildChart6()
+		}
+	})
+
+	function buildChart6(){
+		var chartData5 = {
+			"type": "pie",
+			"subtitle": {
+				"text": "Blog(Green) | Media(Blue) | Friend(Red)\nGoogle(Orange) | Product(Grey) | Employee(Purple)"
+			},
+			"series":[
+				{
+					"values": customerloc.location_1,
+					'background-color': "#4cbb17",
+					"text": "Blog"
+
+				},
+				{
+					"values": customerloc.location_2,
+					'background-color': "#45b6fe",
+					"text": "Social Media"
+				},
+				{
+					"values": customerloc.location_3,
+					'background-color': "#d30000",
+					"text": "Friend"
+				},
+				{
+					"values": customerloc.location_4,
+					'background-color': "#767676",
+					"text": "Google Search"
+
+				},
+				{
+					"values": customerloc.location_5,
+					'background-color': "#ffaa00",
+					"text": "Product"
+				},
+				{
+					"values": customerloc.location_6,
+					'background-color': "#664596",
+					"text": "Company"
+				}
+			],
+			"plot" :{
+				"animation":{
+					"effect": 2,
+					"speed": 4
+				}
+			}
+		}
+		zingchart.render({
+			id: "CustsLoc",
+			data: chartData5,
+			height: 300,
       		width: "100%"
 		})
 	}
