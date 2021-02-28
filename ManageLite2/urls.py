@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from acc.views import home, prefChart, loginPage, registerPage, logoutSite, userPage, perPersonChart, riskPer
+from acc.views import home, prefChart, loginPage, registerPage, logoutSite, userPage, perPersonChart, riskPer, customerPer
 from projects.views import projectCreate, projectUpdate, projectView, projectDelete
 from risks.views import riskreg, riskUpdate, riskDelete
 from tasks.views import taskCreate, taskUpdate, taskView, taskDelete
@@ -61,6 +61,7 @@ urlpatterns = [
     path('logout/', logoutSite, name= "logout"),
     path('prefChart/', prefChart, name= "prefChart"),
     path('riskPer/', riskPer, name= "riskPer"),
+    path('customerPer/', customerPer, name= "customerPer"),
     path('perPersonChart/', perPersonChart, name= "perPersonChart"),
 ]
 

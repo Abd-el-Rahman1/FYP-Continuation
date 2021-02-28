@@ -13,7 +13,7 @@ class Customer(models.Model):
     )
 
     STATUS_CHOICE =(
-        ('Unopened', 'Unopened'),
+        ('Open', 'Open'),
         ('In progress', 'In progress'),
         ('Closed', 'Closed'),
     )

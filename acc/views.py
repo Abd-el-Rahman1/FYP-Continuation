@@ -70,7 +70,8 @@ def userPage(request):
 
     risksT = risks.filter(status='Open').count() + risks.filter(status = 'Inprogress').count()
     docsT = docs.filter(dateDeleted__isnull=True).count()
-    reportsT = reports.filter(closed=False).count()
+    reportsNCR = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='NCR').count()
+    reportsOFI = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='OFI').count()
     pobjsT = pobjs.filter(finished=False).count()
     tasksT = tasks.filter(finished=False).count()
     custsT = custs.filter(status='Inprogress').count()
@@ -79,7 +80,8 @@ def userPage(request):
     return render(request, 'user.html', {
         'risksT': risksT,
         'docsT': docsT,
-        'reportsT': reportsT,
+        'reportsNCR': reportsNCR,
+        'reportsOFI': reportsOFI,
         'pobjsT': pobjsT,
         'tasksT': tasksT,
         'pobjs': pobjs,
@@ -101,7 +103,8 @@ def home(request):
 
     risksT = risks.filter(status='Open').count() + risks.filter(status = 'Inprogress').count()
     docsT = docs.filter(dateDeleted__isnull=True).count()
-    reportsT = reports.filter(closed=False).count()
+    reportsNCR = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='NCR').count()
+    reportsOFI = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='OFI').count()
     pobjsT = pobjs.filter(finished=False).count()
     tasksT = tasks.filter(finished=False).count()
     custsT = custs.filter(status='Inprogress').count()
@@ -110,7 +113,8 @@ def home(request):
     return render(request, 'dashboard.html', {
         'risksT': risksT,
         'docsT': docsT,
-        'reportsT': reportsT,
+        'reportsNCR': reportsNCR,
+        'reportsOFI': reportsOFI,
         'pobjsT': pobjsT,
         'tasksT': tasksT,
         'pobjs': pobjs,
@@ -161,17 +165,30 @@ def perPersonChart(request):
 def riskPer(request):
     risks = Risk.objects.all()
 
-    risksO = risks.filter(status='Open').count()
+    risksO = risks.filter(status='Open').count() + risks.filter(status__isnull=True).count()
     risksI = risks.filter(status = 'In progress').count()
     risksC = risks.filter(status='Closed').count()
-
-    print (risksO)
 
     riskslist={
         "open": risksO,
         "in_prog": risksI,
         "closed": risksC
     }
-    print (riskslist)
     
     return JsonResponse(riskslist)
+
+@login_required(login_url='login')
+def customerPer(request):
+    custs = Customer.objects.all()
+
+    custsO = custs.filter(status='Open').count() + custs.filter(status__isnull=True).count()
+    custsI = custs.filter(status = 'In progress').count()
+    custsC = custs.filter(status='Closed').count()
+
+    custslist={
+        "open": custsO,
+        "in_prog": custsI,
+        "closed": custsC
+    }
+    
+    return JsonResponse(custslist)

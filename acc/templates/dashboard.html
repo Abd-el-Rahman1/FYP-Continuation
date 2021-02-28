@@ -73,16 +73,14 @@
 		<div class="col-sm-3">
 			<h5>TOTAL ACTIVE PROCESSES:</h5>
 			<hr>	
-			<h4>Reports: {{reportsT}}</h4>
-			<hr>
+			<h4>Audit findings: </h4><h6>NCRs: {{reportsNCR}}</h6><h6>OFIs: {{reportsOFI}}</h6>
+			<br>
 			<h4>Risks: {{risksT}}</h4>
-			<hr>
-			<h4>Documents: {{docsT}}</h4>
-			<hr>
+			<br>
 			<h4>Projects: {{pobjsT}}</h4>
-			<hr>
+			<br>
 			<h4>Tasks: {{tasksT}}</h4>
-			<hr>
+			<br>
 			<h4>Inprogress Complaints: {{custsT}}</h4>
 		</div>
 	</div>
@@ -90,7 +88,7 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-3">	
-			<h5>GENERAL PERFORMANCE:</h5>
+			<h5>RISKS:</h5>
 			<hr>
 			<div class="card card-body">
 				<div id="RiskPie"></div>
@@ -98,10 +96,10 @@
 			</div>
 		</div>
 		<div class="col-sm-3">	
-			<h5>YOUR PERFORMANCE:</h5>
+			<h5>CUSTOMER COMPLAINTS:</h5>
 			<hr>
 			<div class="card card-body">
-				<div id="UserChart"></div>
+				<div id="CustsPie"></div>
 	
 			</div>
 		</div>
@@ -432,6 +430,61 @@
 		zingchart.render({
 			id: "RiskPie",
 			data:chartData3,
+			height: 300,
+      		width: "100%"
+		})
+	}
+
+	var custscount ={
+		'openl':[],
+		'in_progl':[],
+		'closedl':[],
+	}
+	var dataURL = `/customerPer/`
+	$.ajax({
+		method: 'GET',		
+		url:dataURL,
+
+		success:function(custslist){
+			console.log('RESPONSE:', custslist)
+			
+			custscount.openl.push(custslist.open)
+			custscount.in_progl.push(custslist.in_prog)
+			custscount.closedl.push(custslist.closed)
+			buildChart5()
+		}
+	})
+
+	function buildChart5(){
+		var chartData4 = {
+			"type": "pie",
+			"title": {
+				"text": "Complaint Status"
+			},
+			"series":[
+				{
+					"values": custscount.openl,
+					label: {text: 'number of tasks'},
+				},
+				{
+					"values": custscount.in_progl,
+					label: {text: 'number of tasks'},
+				},
+				{
+					"values": custscount.closedl,
+					label: {text: 'number of tasks'},
+				}
+			],
+			"plot" :{
+				"animation":{
+					"effect": 2,
+					"speed": 4
+				}
+			}
+		}
+		zingchart.render({
+			id: "CustsPie",
+			data:chartData4,
 			height: 300,
       		width: "100%"
 		})
