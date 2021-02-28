@@ -1,7 +1,5 @@
 from django.db import models
 
-from pms import models as ManagerID
-from emps import models as EmpID
 from django.contrib.auth.models import User
 from projects import models as PName
 
