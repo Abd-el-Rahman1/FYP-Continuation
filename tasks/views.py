@@ -49,7 +49,6 @@ def taskUpdate(request, pk):
             tasks.dateUpdated = datetime.datetime.now()
             if tasks.finished == True:
                 tasks.dateFinished = datetime.datetime.now()
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())                
             form.save()
             return redirect('taskCreate')
 

@@ -71,7 +71,6 @@ def riskUpdate(request, pk):
             if risks.status == 'Closed':
                 risks.dateFinished = datetime.datetime.now()
             form.save()
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
             return redirect('risk')
 
     form = {'form':form}

@@ -101,24 +101,32 @@ def home(request):
     custs = Customer.objects.all()
     points = Point.objects.all()
 
-    risksT = risks.filter(status='Open').count() + risks.filter(status = 'Inprogress').count()
+
+    risksT = risks.filter(status='Open').count() + risks.filter(status='In progress').count()
+    risksH = risks.filter(priority = 'High' ).count() + risks.filter(priority = 'Very High' ).count()
+    risksL = risks.filter(priority = 'Low' ).count() + risks.filter(priority = 'Very Low' ).count()
     docsT = docs.filter(dateDeleted__isnull=True).count()
     reportsNCR = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='NCR').count()
     reportsOFI = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='OFI').count()
-    pobjsT = pobjs.filter(finished=False).count()
-    tasksT = tasks.filter(finished=False).count()
+    pobjsF = pobjs.filter(finished=False).count()
+    pobjsT = pobjs.filter(finished=True).count()
+    tasksF = tasks.filter(finished=False).count()
+    tasksT = tasks.filter(finished=True).count()
     custsT = custs.filter(status='Inprogress').count()
     pointsT = points.filter(pointOwner=request.user.id).count()
 
     return render(request, 'dashboard.html', {
         'risksT': risksT,
+        'risksH': risksH,
+        'risksL': risksL,
         'docsT': docsT,
         'reportsNCR': reportsNCR,
         'reportsOFI': reportsOFI,
+        'pobjsF': pobjsF,
         'pobjsT': pobjsT,
+        'tasksF': tasksF,
         'tasksT': tasksT,
         'pobjs': pobjs,
-        'tasks': tasks,
         'custsT': custsT,
         'pointsT': pointsT
         
@@ -192,3 +200,25 @@ def customerPer(request):
     }
     
     return JsonResponse(custslist)
+
+@login_required(login_url='login')
+def customerLoc(request):
+    custs = Customer.objects.all()
+
+    custs1 = custs.filter(source='Blog').count()
+    custs2 = custs.filter(source = 'Social media').count()
+    custs3 = custs.filter(source= 'Friend').count()
+    custs4 = custs.filter(source= 'Google search').count()
+    custs5 = custs.filter(source = 'Product package').count()
+    custs6 = custs.filter(source= 'Company Employee').count()
+
+    custslocation={
+        "location1": custs1,
+        "location2": custs2,
+        "location3": custs3,
+        "location4": custs4,
+        "location5": custs5,
+        "location6": custs6
+    }
+    
+    return JsonResponse(custslocation)

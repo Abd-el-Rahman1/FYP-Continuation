@@ -67,19 +67,17 @@
 		<div class="col-sm-3">
 			<h5>TOTAL ACTIVE PROCESSES:</h5>
 			<hr>	
-			<br>
-			<h4>Audit findings: </h4><h6>NCRs: {{reportsNCR}}</h6><h6>OFIs: {{reportsOFI}}</h6>
-			<br>
-			<h4>Total Risks: {{risksT}}</h4>
-			<br>
-			<h4>Total Projects: {{pobjsT}}</h4>
-			<br>
-			<h4>Total Tasks: {{tasksT}}</h4>
-			<br>
-			<h4>Total Inprogress Complaints: {{custsT}}</h4>
-			<br>
-			<h4>Total Action You Performed: {{pointsT}}</h4>
-			
+			<h4>Reports: {{reportsT}}</h4>
+			<hr>
+			<h4>Risks: {{risksT}}</h4>
+			<hr>
+			<h4>Documents: {{docsT}}</h4>
+			<hr>
+			<h4>Projects: {{pobjsT}}</h4>
+			<hr>
+			<h4>Tasks: {{tasksT}}</h4>
+			<hr>
+			<h4>Complaints: {{custsT}}</h4>
 		</div>
 	</div>
 </div>
@@ -311,11 +309,9 @@
 			"series":[
 				{
 					"values": total.first,
-					label: {text: 'number of tasks'},
 				},
 				{
 					"values": total.second,
-					label: {text: 'number of tasks'},
 				}
 			],
 			"plot" :{

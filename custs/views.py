@@ -36,8 +36,7 @@ def customerUpdate(request, pk):
         if form.is_valid():
             custs.dateUpdated = datetime.datetime.now()
             if custs.status == 'Closed':
-                custs.dateFinished = datetime.datetime.now()
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())                
+                custs.dateFinished = datetime.datetime.now()             
             form.save()
             return redirect('customerComplaints')
 

@@ -56,7 +56,6 @@ def reportUpdate(request, pk):
             reports.dateUpdated = datetime.datetime.now()
             if reports.closed == True:
                 reports.dateFinished = datetime.datetime.now()
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())                
             form.save()
             return redirect('auditboard')
 

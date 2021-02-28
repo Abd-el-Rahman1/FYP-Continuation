@@ -148,7 +148,7 @@
 							<td>{{r.dateFinished}}</td>
 							<td>{{r.status}}</td>
 							{% if request.user.is_staff %}
-							<td class="container" style="width: 10px;"><a class="btn btn-outline-success btn-block fa fa-refresh fa-lg" href="{% url 'risku' r.id %}"></a>
+							<td class="container" style="width: 10px;"><a class="btn btn-outline-warning btn-block fa fa-refresh fa-lg" href="{% url 'risku' r.id %}"></a>
 								<a class="btn btn-outline-danger btn-block fa fa-trash-o fa-lg" href="{% url 'riskd' r.id %}"></a></td>
 							{% endif %}
 						</tr>
@@ -217,7 +217,7 @@
 							<td>{{r.dateFinished}}</td>
 							<td>{{r.status}}</td>
 							{% if request.user.is_staff %}
-							<td class="container" style="width: 10px;" ><a class="btn btn-outline-success btn-block fa fa-trash-o fa-lg " href="{% url 'risku' r.id %}"></a>
+							<td class="container" style="width: 10px;" ><a class="btn btn-outline-warning btn-block fa fa-trash-o fa-lg " href="{% url 'risku' r.id %}"></a>
 								<a class="btn btn-outline-danger btn-block fa fa-refresh fa-lg" href=""></a></td>
 							{% endif %}
 						</tr>

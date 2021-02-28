@@ -111,7 +111,6 @@ def docDelete(request, pk):
     if request.method == 'POST':
         docs.dateDeleted = datetime.datetime.now() + datetime.timedelta(days=100)
         docs.save()
-        Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
         return redirect('docboard')
 
     docs = {'docs':docs}
@@ -124,7 +123,6 @@ def edocDelete(request, pk):
     if request.method == 'POST':
         docs.dateDeleted = datetime.datetime.now() + datetime.timedelta(days=100)
         docs.save()
-        Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
         return redirect('edocboard')
 
     docs = {'docs':docs}

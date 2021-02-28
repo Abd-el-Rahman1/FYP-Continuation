@@ -50,7 +50,6 @@ def projectUpdate(request, pk):
             projects.dateUpdated = datetime.datetime.now()
             if projects.finished == True:
                 projects.dateFinished = datetime.datetime.now()
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())                
             form.save()
             return redirect('projectCreate')
 
