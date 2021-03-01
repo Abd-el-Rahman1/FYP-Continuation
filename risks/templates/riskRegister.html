@@ -31,7 +31,7 @@
 }
 
 #table-search {
-  height: 200px;
+  height: 320px;
   font-size:12px;
   overflow-y: auto;
   font-family: 'Quicksand', sans-serif;
@@ -63,11 +63,13 @@
 						
 						<form method="get">
 							<br>
-							<h4>Total Risks: {{total_risks}}</h4>
+							<h1>Total Risks: {{total_risks}}</h1>
+							<br>
 							<hr>
-							<h4>Current Risks: {{O_risks}}</h4>
+							<h1>Current Risks: {{O_risks}}</h1>
+							<br>
 							<hr>
-							<h4>Closed Risks: {{C_risks}}</h4>
+							<h1>Closed Risks: {{C_risks}}</h1>
 							</form>
 					</table>
 			  	</div>
@@ -118,7 +120,6 @@
 							<th>Risk Response Plan</th>
 							<th>Created</th>
 							<th>Updated</th>
-							<th>Closed</th>
 							<th>Status</th>
 							<th></th>
 						</tr>
@@ -142,10 +143,9 @@
 
 							{% endfor %}
 							</td>
-							<td>{{r.rrp}}</td>
+							<td>{{r.riskResponsePlan}}</td>
 							<td>{{r.dateCreated}}</td>
 							<td>{{r.dateUpdated}}</td>
-							<td>{{r.dateFinished}}</td>
 							<td>{{r.status}}</td>
 							{% if request.user.is_staff %}
 							<td class="container" style="width: 10px;"><a class="btn btn-outline-warning btn-block fa fa-refresh fa-lg" href="{% url 'risku' r.id %}"></a>
@@ -190,7 +190,6 @@
 							<th>Created</th>
 							<th>Updated</th>
 							<th>Closed</th>
-							<th>Status</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -211,14 +210,13 @@
 									{{owner}}, 
 								{% endfor %}
 						</td>
-							<td>{{r.rrp}}</td>
+							<td>{{r.riskResponsePlan}}</td>
 							<td>{{r.dateCreated}}</td>
 							<td>{{r.dateUpdated}}</td>
 							<td>{{r.dateFinished}}</td>
-							<td>{{r.status}}</td>
 							{% if request.user.is_staff %}
-							<td class="container" style="width: 10px;" ><a class="btn btn-outline-warning btn-block fa fa-trash-o fa-lg " href="{% url 'risku' r.id %}"></a>
-								<a class="btn btn-outline-danger btn-block fa fa-refresh fa-lg" href=""></a></td>
+							<td class="container" style="width: 10px;" ><a class="btn btn-outline-warning btn-block fa fa-refresh fa-lg " href="{% url 'risku' r.id %}"></a>
+								<a class="btn btn-outline-danger btn-block fa fa-trash-o fa-lg" href=""></a></td>
 							{% endif %}
 						</tr>
 						{% endif %}

@@ -69,7 +69,7 @@ def userPage(request):
     pobjsT = pobjs.filter(finished=True).count()
     tasksF = tasks.filter(finished=False).count()
     tasksT = tasks.filter(finished=True).count()
-    custsT = custs.filter(status='Inprogress').count()
+    custsT = custs.filter(status='In progress').count() + custs.filter(status='Open').count()
     pointsT = points.filter(pointOwner=request.user.id).count()
 
     return render(request, 'user.html', {
@@ -105,7 +105,7 @@ def home(request):
     pobjsT = pobjs.filter(finished=True).count()
     tasksF = tasks.filter(finished=False).count()
     tasksT = tasks.filter(finished=True).count()
-    custsT = custs.filter(status='Inprogress').count()
+    custsT = custs.filter(status='In progress').count() + custs.filter(status='Open').count()
     pointsT = points.filter(pointOwner=request.user.id).count()
 
     return render(request, 'dashboard.html', {

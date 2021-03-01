@@ -1,17 +1,21 @@
 {%  extends 'Base.html' %}
 {% block content %}
-<br>
-<div class="row">
-	<div class="card mx-auto">
-		<div class="card card-body">
-			<h1>Report Template</h1>
-		</div>
-	</div>
-</div>
+<style>
+	#card-title{
+		background-color: #17ac1f;
+		color: white;
+		font-size:13px;
+		text-align: center;
+	}
+</style>
+
 <br>
 <div class="container">
 	<div class="row">	
-		<div class="card mb-3 card-body text-center">
+		<div class="card-header mb-3 text-center" id=card-title>
+			<h5  class="card-title">Audit Finding Creation</h5>
+	  	</div>
+		  <div class="card mb-3 card-body text-center">
 			<div id="table-short">
 				<form action="" method="POST" id="form1">
 					{% csrf_token %}

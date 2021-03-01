@@ -60,7 +60,7 @@ def riskDelete(request, pk):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Manager'])
+@allowed_users(allowed_roles=['Manager', 'Audit'])
 def riskUpdate(request, pk):
     risks = Risk.objects.get(id=pk)
     form = RiskCForm(instance=risks)

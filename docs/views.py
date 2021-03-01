@@ -47,10 +47,10 @@ def docAdminCreate(request):
             
             if Doc.objects.filter(name=a).exists():
                 c = Doc.objects.filter(name=a, dateDeleted__isnull=True)               
-                c.update(name = datetime.datetime.now(tz=timezone.utc).strftime("%m/%d/%Y, %H:%M:%S")+ '_' + a, dateDeleted = datetime.datetime.now(tz=timezone.utc)+ datetime.timedelta(days=100))
+                c.update(name = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ '_' + a, dateDeleted = datetime.datetime.now()+ datetime.timedelta(days=100))
 
-                docs.dateUpdated = datetime.datetime.now(tz=timezone.utc)
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now(tz=timezone.utc))
+                docs.dateUpdated = datetime.datetime.now()
+            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
             docs.name = a
             form.save()
             return redirect('docboard')
@@ -74,10 +74,10 @@ def docEmployeeCreate(request):
             
             if Doc.objects.filter(name=a).exists():
                 c = Doc.objects.filter(name=a, dateDeleted__isnull=True)               
-                c.update(name = datetime.datetime.now(tz=timezone.utc).strftime("%m/%d/%Y, %H:%M:%S")+ '_' + a, dateDeleted = datetime.datetime.now(tz=timezone.utc)+ datetime.timedelta(days=100))
+                c.update(name = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ '_' + a, dateDeleted = datetime.datetime.now()+ datetime.timedelta(days=100))
 
-                docs.dateUpdated = datetime.datetime.now(tz=timezone.utc)
-            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now(tz=timezone.utc))
+                docs.dateUpdated = datetime.datetime.now()
+            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
             docs.name = a
             form.save()
             return redirect('edocboard')

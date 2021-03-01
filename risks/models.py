@@ -28,7 +28,7 @@ class Risk(models.Model):
     effect = models.TextField(max_length=1000, blank=True, null=False)
     owner = models.ManyToManyField(User)
     pName = models.ForeignKey(PName.Project, null=True, blank=True, on_delete=models.SET_NULL)
-    rrp = models.TextField(max_length=1000, blank=True, null=False)
+    riskResponsePlan = models.TextField(max_length=1000, blank=True, null=False)
     status = models.CharField(choices=STATUS_CHOICE, max_length=30, null=True)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateUpdated = models.DateTimeField(null=True, blank=True)

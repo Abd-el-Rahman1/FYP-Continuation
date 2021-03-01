@@ -17,6 +17,8 @@ def customerForm(request):
     if request.method == 'POST':
         form = CustCForm(request.POST)
         if form.is_valid():
+            custs = form.save(commit=False)
+            custs.status = 'Open'
             form.save()
             return redirect('http://www.apu.edu.my/')
 

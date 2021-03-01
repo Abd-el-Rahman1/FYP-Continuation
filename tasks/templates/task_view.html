@@ -1,46 +1,40 @@
 {%  extends 'Base.html' %}
 {% block content %}
-<br>
-<div class="row">
-	<div class="card mx-auto">
-		<div class="card card-body">
-			<h1>PROJECT UPDATE</h1>
-		</div>
-	</div>
-</div>
+<style>
+	#card-title{
+		background-color: #17ac1f;
+		color: white;
+		font-size:13px;
+		text-align: center;
+	}
+</style>
+
 <br>
 <div class="container">
 	<div class="row">	
-			<div class="card mb-3 card-body text-center">
+		<div class="card-header mb-3 text-center" id=card-title>
+			<h5  class="card-title">PROJECT UPDATE</h5>
+	  	</div>
+		  <div class="card mb-3 card-body text-center">
 				<div id="table-short">
 					<form action="" method="POST" id="form1">
 						{% csrf_token %}
 						<hr>Title
-						<br>{{form.name}}
+						<br>{{form.title}}
+						<hr>Project
+						<br>{{form.project}}
 						<hr>Deadline
 						<br>{{form.deadline}}
-						<hr>Budget
-						<br style="margin-bottom: 63px;">{{form.budget}}
 						<hr>Description
 						<br>{{form.description}}			
 				</div>
 			</div>
 			<div class="card mb-3 card-body text-center">
 				<div id="table-short">
-						<hr>Scope
-						<br>{{form.scope}}
-						<hr>Business Case
-						<br>{{form.businessCase}}
-				</div>
-			</div>
-			<div class="card mb-3 card-body text-center">
-				<div id="table-short">
 						<hr>Team
 						<br>{{form.team}}
-						<hr>Finished (tick box)
+						<hr>Finished ?
 						<br>{{form.finished}}
-						<hr>Sponsors
-						<br>{{form.sponsors}}
 						<hr>Date Created
 						<br>{{form.dateCreated}}
 						<hr>Date Updated
@@ -50,12 +44,13 @@
 					</form>
 				</div>
 			</div>
+		</div>
 	</div>
 </div>
 <br>
 <div class="row" style="margin-left: 865px;">
 			<div id="table-short">
-				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'projectCreate' %}">Back</a>
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'taskCreate' %}">Back</a>
 		</div>
 </div>
 
