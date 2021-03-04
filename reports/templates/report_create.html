@@ -19,19 +19,19 @@
 			<div id="table-short">
 				<form action="" method="POST" id="form1">
 					{% csrf_token %}
-					<hr>Auditee
+					<hr>*Auditee
 					<br>{{form.auditee}}
-					<hr>Location
+					<hr>*Location
 					<br>{{form.location}}
-					<hr>Deadline
+					<hr>Deadline(MM/DD/YYYY)
 					<br style="margin-bottom: 63px;">{{form.deadline}}
-					<hr>Type
+					<hr>*Type
 					<br>{{form.NCR_or_OFI}}	
 			</div>
 		</div>
 		<div class="card mb-3 card-body text-center">
 			<div id="table-short">
-					<hr>Area Audited
+					<hr>*Area Audited
 					<br>{{form.areaAudited}}
 					<hr>Comment
 					<br>{{form.comment}}

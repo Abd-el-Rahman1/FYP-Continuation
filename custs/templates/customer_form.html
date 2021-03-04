@@ -17,11 +17,11 @@
 							<div id="table-short">
 								<form action="" method="POST" id="form1">
 									{% csrf_token %}
-									<hr>Name
+									<hr>*Name
 									<br>{{form.name}}
-									<hr>Phone
+									<hr>*Phone
 									<br>{{form.phone}}
-									<hr>Email
+									<hr>*Email
 									<br>{{form.email}}
 									<hr>Age
 									<br>{{form.age}}
@@ -29,7 +29,7 @@
 									<br>{{form.address}}
 									<hr>Where did you hear about us?
 									<br>{{form.source}}
-									<hr>Problem
+									<hr>*Problem
 									<br>{{form.problem}}
 						</form>
 					</table>

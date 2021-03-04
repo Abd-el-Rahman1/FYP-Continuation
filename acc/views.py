@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -20,21 +19,6 @@ from tasks.models import Task
 from custs.models import Customer
 
 # Create your views here.
-
-def registerPage(request):
-
-    form = CreateUserForm()
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.date_joined = datetime.datetime.now()
-            form.save()
-            messages.success(request,'Account created for: ' + {form.clean_data.get('username')})
-
-            return redirect('login')
-        
-    context = {'form': form}
-    return render (request, 'register.html', context)
 
 @unauthenticated_user
 def loginPage(request):
@@ -87,7 +71,6 @@ def userPage(request):
 @admin_only
 def home(request):
     risks = Risk.objects.all()
-    docs = Doc.objects.all()
     reports = Report.objects.all()
     pobjs = Project.objects.all()
     tasks = Task.objects.all()
@@ -98,7 +81,6 @@ def home(request):
     risksT = risks.filter(status='Open').count() + risks.filter(status='In progress').count()
     risksH = risks.filter(priority = 'High' ).count() + risks.filter(priority = 'Very High' ).count()
     risksL = risks.filter(priority = 'Low' ).count() + risks.filter(priority = 'Very Low' ).count()
-    docsT = docs.filter(dateDeleted__isnull=True).count()
     reportsNCR = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='NCR').count()
     reportsOFI = reports.filter(closed=False).count() + reports.filter(NCR_or_OFI='OFI').count()
     pobjsF = pobjs.filter(finished=False).count()
@@ -112,7 +94,6 @@ def home(request):
         'risksT': risksT,
         'risksH': risksH,
         'risksL': risksL,
-        'docsT': docsT,
         'reportsNCR': reportsNCR,
         'reportsOFI': reportsOFI,
         'pobjsF': pobjsF,
@@ -122,8 +103,6 @@ def home(request):
         'pobjs': pobjs,
         'custsT': custsT,
         'pointsT': pointsT
-        
-        
         })
 
 

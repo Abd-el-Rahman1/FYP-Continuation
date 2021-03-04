@@ -52,7 +52,7 @@
 </style>
 <br>
 <div class="row">
-	<div class="col">
+	<div class="col-6">
 		<div class="col-12">
 			<div class="card text-center mb-3" style="background-color: white">
 			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
@@ -77,8 +77,8 @@
 		</div>
 	</div>
 	{% if request.user.is_staff %}
-	<div class="col">
-		<div class="col-12">
+
+	<div class="col-6">
 			<div class="card text-center mb-3" style="background-color: white">
 			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
 			  		<h5 class="card-title"><button form = "form2" class="btn btn-success" type="submit">Create</button></h5>
@@ -87,12 +87,32 @@
 					<table class="table table-responsive-lg">
 						<form id="form2" action="" method="POST">						
 							{% csrf_token %}
-							{{form.as_table}}
+							<tr>
+								*Title
+								<br>{{form.title}}</td>
+								<hr>*Description</th>
+								<br>{{form.description}}</td>
+								<hr>Project</th>
+								<br>{{form.pName}}</td>
+								<hr>Category</th>
+								<br>{{form.category}}</td>
+								<hr>*Probability</th>
+								<br>{{form.probability}}</td>
+								<hr>*Impact</th>
+								<br>{{form.impact}}</td>
+								<hr>*Priority</th>
+								<br>{{form.priority}}</td>
+								<hr>Effect</th>
+								<br>{{form.effect}}</td>
+								<hr>Risk Response Plan</th>
+								<br>{{form.riskResponsePlan}}</td>
+								<hr>*Status</th>
+								<br>{{form.status}}</td>
+							</tr>
 							</form>
 					</table>
 			  	</div>
 			</div>
-		</div>
 	</div>
 	{% endif %}
 </div>

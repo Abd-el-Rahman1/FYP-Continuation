@@ -74,14 +74,14 @@
 			<h5>TOTAL ACTIVE PROCESSES:</h5>
 			<hr>	
 			<h4>Audit findings: </h4><h6>NCRs: {{reportsNCR}}</h6><h6>OFIs: {{reportsOFI}}</h6>
-
+			<hr>
 			<h4>Risks: {{risksT}}</h4><h6>High Priority: {{risksH}}</h6><h6>Low Priority: {{risksL}}</h6>
-
+			<hr>
 			<h4>Projects: {{pobjsF}}</h4><h6>closed: {{pobjsT}}</h6>
+			<hr>
+			<h4>Tasks: {{tasksF}}</h4>
 
-			<h4>Tasks: {{tasksF}}</h4><h6>closed: {{tasksT}}</h6>
 
-			<h4>Complaints: {{custsT}}</h4>
 		</div>
 	</div>
 	<br>
@@ -110,6 +110,12 @@
 	
 			</div>
 		</div>
+		<div class="col-sm-3">
+			
+			<h6>closed: {{tasksT}}</h6>
+			<hr>
+			<h4>Complaints: {{custsT}}</h4>
+		</div>
 	</div>
 </div>
 
@@ -124,7 +130,7 @@
 				<h5 class="card-title"> YOUR CURRENT PROJECTS</h5>
 			</div>
 			<div id="table-short">
-				<table class="table table-striped table-bordered projects" style="width: 100%">
+				<table class="table table-bordered table-striped table-bordered projects" style="width: 100% " style="">
 					<thead>
 						<tr id="table-title1">
 							<th>Name</th>
@@ -237,12 +243,8 @@
 				state.values.push(data1.performance[i])
 				total.first.push(data1.performance[i])
 			}
-			
-
 			console.log('STATE:', state)
-			
 			buildChart()
-			
 		}
 	})
 
@@ -256,7 +258,7 @@
 			"series":[
 				{
 					"values": state.values,
-					
+					label: {text: 'Creations'}
 				},
 				
 			],
@@ -326,6 +328,7 @@
 			height: 300,
       		width: "100%"
 		})
+		buildChart3()
 	}
 
 	var total ={
@@ -382,7 +385,6 @@
 			riskcount.closedl.push(riskslist.closed)
 			console.log('this:', riskcount)
 			buildChart4()
-			buildChart3()
 		}
 	})
 
@@ -403,13 +405,17 @@
 				{
 					"values": riskcount.in_progl,
 					'background-color': "#45b6fe",
-					"title": "In Progress"
+					"title": "In Progress",
+					label: {text: 'In Progress'},
+
 
 				},
 				{
 					"values": riskcount.closedl,
 					'background-color': "#d30000",
-					"text": "Closed"
+					"text": "Closed",
+					label: {text: 'Closed'},
+
 				}
 			],
 			"plot" :{

@@ -10,7 +10,7 @@ from django.conf import settings
 import datetime
 from points.models import Point
 from .models import Project
-from acc.forms import ProjectCForm, CreateUserForm
+from acc.forms import ProjectCForm
 
 
 # Create your views here.

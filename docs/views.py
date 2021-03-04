@@ -11,7 +11,7 @@ import datetime
 from points.models import Point
 from .models import Doc
 import documents
-from acc.forms import DocCForm, CreateUserForm
+from acc.forms import DocCForm
 from django.core.files.storage import FileSystemStorage
 from pathlib import Path
 import os

@@ -4,14 +4,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
 from django.contrib import messages
 import datetime
 from .models import Risk
 from projects.models import Project
 from points.models import Point
-from acc.filters import RiskFilter
-from acc.forms import RiskCForm, CreateUserForm
+from acc.forms import RiskCForm
 from acc.decorators import unauthenticated_user, allowed_users, admin_only
 
 #Risk register view for search creation and status.
@@ -23,9 +21,6 @@ def riskreg(request):
     O_risks = risks.filter(status='Open').count() + risks.filter(status = 'Inprogress').count()
     C_risks = risks.filter(status='Closed').count()
     total_risks = risks.count()
-    #search
-    myFilter = RiskFilter(request.GET, queryset=risks)
-    risks = myFilter.qs
     #creation
     form = RiskCForm()
     if request.method == 'POST':
@@ -41,7 +36,6 @@ def riskreg(request):
     'O_risks': O_risks,
     'C_risks': C_risks,
     'total_risks': total_risks,
-    'myFilter':myFilter
 
     })
 

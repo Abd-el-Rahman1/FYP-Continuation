@@ -7,7 +7,7 @@ import datetime
 from django.contrib import messages
 from points.models import Point
 from .models import Customer
-from acc.forms import CustCForm, CreateUserForm
+from acc.forms import CustCForm
 from acc.decorators import unauthenticated_user, allowed_users, admin_only
 
 @login_required(login_url='login')

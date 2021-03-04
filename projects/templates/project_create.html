@@ -133,15 +133,15 @@
 						<form id="form2" action="" method="POST">						
 							{% csrf_token %}
 							<table>
-								Title
+								*Title
 								<br>{{form.name}}
-								<hr>Deadline
+								<hr>Deadline(MM/DD/YYYY)
 								<br>{{form.deadline}}
 								<hr>Budget
 								<br>{{form.budget}}
-								<hr>Description
+								<hr>*Description
 								<br>{{form.description}}
-								<hr>Team
+								<hr>*Team
 								<br>{{form.team}}
 								<hr>Scope
 								<br>{{form.scope}}
@@ -175,7 +175,7 @@
 								<th>Team</th>
 								<th>Budget</th>
 								<th>Started</th>
-								<th>Deadline</th>
+								<th>Deadline(MM:DD:YYY)</th>
 								<th>Completed</th>
 								<th>Options</th>
 							</tr>
