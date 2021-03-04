@@ -1,3 +1,6 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
@@ -18,11 +21,10 @@ from projects.models import Project
 from tasks.models import Task
 from custs.models import Customer
 
-# Create your views here.
 
 @unauthenticated_user
 def loginPage(request):
-
+#This code will validate the user input 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -40,15 +42,15 @@ def logoutSite(request):
     logout(request)
     return redirect('login')
 
-
-    ###
-
+#this is the dashboard for the Employees
 def userPage(request):
+    #tables are called
     pobjs = Project.objects.all()
     tasks = Task.objects.all()
     custs = Customer.objects.all()
     points = Point.objects.all()
 
+    #tables are filtered based on finished status
     pobjsF = pobjs.filter(finished=False).count()
     pobjsT = pobjs.filter(finished=True).count()
     tasksF = tasks.filter(finished=False).count()
@@ -67,9 +69,12 @@ def userPage(request):
         'pointsT': pointsT
         })
 
+
+#This is the dashboard for Managers and Audits
 @login_required(login_url='login')
 @admin_only
 def home(request):
+    #tables are loaded
     risks = Risk.objects.all()
     reports = Report.objects.all()
     pobjs = Project.objects.all()
@@ -77,7 +82,7 @@ def home(request):
     custs = Customer.objects.all()
     points = Point.objects.all()
 
-
+    #tables are filtered
     risksT = risks.filter(status='Open').count() + risks.filter(status='In progress').count()
     risksH = risks.filter(priority = 'High' ).count() + risks.filter(priority = 'Very High' ).count()
     risksL = risks.filter(priority = 'Low' ).count() + risks.filter(priority = 'Very Low' ).count()
@@ -105,10 +110,12 @@ def home(request):
         'pointsT': pointsT
         })
 
-
+#This is responsible for sending the JSON response to the front-end
 @login_required(login_url='login')
 def prefChart(request):
+    #table is filtered based on date
     pobj = Point.objects.annotate(month=ExtractMonth('dateCreated')).values('month').annotate(count=Count('dateCreated'))
+    #This list is going to contain the data filtered after zipping
     ps = []  
     for p in pobj:
         keys, values = zip(*p.items())
@@ -119,14 +126,13 @@ def prefChart(request):
         "months": month,
         "performance": count
     }
-    
+    #data is sent as Json
     return JsonResponse(data1)
 
 
 
 @login_required(login_url='login')
 def perPersonChart(request):
-    #filtered_object = Point.objects.filter(pointOwner = request.user.id)
     pobj = Point.objects.filter(pointOwner = request.user.id).annotate(month=ExtractMonth('dateCreated')).values('month').annotate(count=Count('dateCreated'))
     ps = []  
     for p in pobj:

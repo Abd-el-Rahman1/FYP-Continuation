@@ -9,6 +9,8 @@ from tasks.models import Task
 from custs.models import Customer
 from docs.models import Doc
 
+#These are the forms that accepts information to and from the tables
+
 class DocCForm(ModelForm):
     class Meta:
         model = Doc

@@ -1,3 +1,5 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -10,6 +12,7 @@ from .models import Customer
 from acc.forms import CustCForm
 from acc.decorators import unauthenticated_user, allowed_users, admin_only
 
+#The customer form page
 @login_required(login_url='login')
 def customerForm(request):
     custs = Customer.objects.all()
@@ -24,11 +27,13 @@ def customerForm(request):
 
     return render(request, 'customer_form.html', {'custs': custs, 'form': form,})
 
+#The customer complaint page
 @login_required(login_url='login')
 def customerComplaints(request):
     custs = Customer.objects.all()
     return render(request, 'customer_complaints.html', {'custs': custs})
 
+#The customer update page
 @login_required(login_url='login')
 def customerUpdate(request, pk):
     custs = Customer.objects.get(id=pk)
@@ -45,6 +50,7 @@ def customerUpdate(request, pk):
     form = {'form':form}
     return render(request, 'customer_update.html', form)
 
+#the customer delete page
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager'])
 def customerDelete(request, pk):

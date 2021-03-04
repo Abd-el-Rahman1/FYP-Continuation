@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
+# these are the decorators that are seen as @ before functions, they decide the authentication groups and levels
+
 def unauthenticated_user(view_func):
 
     def wrapper_func(request, *args, **kwargs):

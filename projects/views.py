@@ -1,3 +1,6 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -13,7 +16,7 @@ from .models import Project
 from acc.forms import ProjectCForm
 
 
-# Create your views here.
+# Same functions as all for display create edit and delete, only minor changes depending on the case
 
 
 @login_required(login_url='login')

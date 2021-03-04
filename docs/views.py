@@ -1,3 +1,6 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -31,25 +34,29 @@ def edocboard(request):
    docs = Doc.objects.filter(classified=False)
    return render(request, 'edocboard.html', {'docs': docs})
 
-
+#the document creation function starts here
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager', 'Audit'])
 def docAdminCreate(request):
     docs = Doc.objects.all()
-    #creation
+    #the form is filled and then taken to validation
     form = DocCForm(initial={'creator':request.user})
     if request.method == 'POST':
         form = DocCForm(request.POST, request.FILES)
         if form.is_valid():
+            #if valid, the creators name is added and the name of the document uploaded is taken
             docs = form.save(commit=False)
             docs.creator = request.user                      
             a = ('{document}'.format(**form.cleaned_data))
             
             if Doc.objects.filter(name=a).exists():
+                #if the document name matches the name of any upload it means that the same file has been uploaded before
+                #the old document is appended with the current date and time and the delete date is set to + 100 days
                 c = Doc.objects.filter(name=a, dateDeleted__isnull=True)               
                 c.update(name = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+ '_' + a, dateDeleted = datetime.datetime.now()+ datetime.timedelta(days=100))
 
                 docs.dateUpdated = datetime.datetime.now()
+            #the file is then saved
             Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
             docs.name = a
             form.save()
@@ -59,6 +66,7 @@ def docAdminCreate(request):
 
     return render(request, 'doc_create.html',{'form': form, 'docs': docs,})
 
+#same as the admin but for employees
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Employee'])
 def docEmployeeCreate(request):
@@ -86,6 +94,7 @@ def docEmployeeCreate(request):
 
     return render(request, 'doc_e_create.html',{'form': form, 'docs': docs,})
 
+# this function deletes the file when the end time arrives (after 100 days)
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager', 'Audit'])
 def completeDelete(request):
@@ -103,7 +112,7 @@ def completeDelete(request):
     return render(request, 'doc_view.html', docs)
 
 
-
+#this will append a 100 day time for the file befor deleting 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager', 'Audit'])
 def docDelete(request, pk):

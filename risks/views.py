@@ -1,3 +1,6 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -11,6 +14,8 @@ from projects.models import Project
 from points.models import Point
 from acc.forms import RiskCForm
 from acc.decorators import unauthenticated_user, allowed_users, admin_only
+
+# Same functions as all for display create edit and delete, only minor changes depending on the case
 
 #Risk register view for search creation and status.
 @login_required(login_url='login')

@@ -1,3 +1,6 @@
+#This system is made by Abd-el-Rahman Mohammed Mohammed Abd-ell-Gabbar
+#TP: TP049556
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -12,8 +15,8 @@ from points.models import Point
 from .models import Report
 from acc.forms import ReportCForm
 
+# Same functions as all for display create edit and delete, only minor changes depending on the case
 
-# Create your views here.
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Manager', 'Audit'])
 def auditboard(request):
