@@ -13,7 +13,7 @@ from points.models import Point
 from django.db.models import Count
 from django.db.models.functions import ExtractMonth
 from django import template
-from django.contrib.auth.models import Group 
+from django.contrib.auth.models import Group
 from docs.models import Doc
 from reports.models import Report
 from risks.models import Risk

@@ -1,0 +1,416 @@
+
+
+CAP and Customer issue report
+https://www.linkedin.com/pulse/ncr-car-scar-capa-par-whats-difference-bill-horricks/
+
+Risk Register
+https://www.youtube.com/watch?v=9tbe9tAwnCk
+
+Crud with view, add, edit, and delete.
+https://www.youtube.com/watch?v=4RWFvXDUmjo
+
+Royal Beggers - Lauren Babic
+
+So you call these things "chips"? Instead of crispity crunchy munchie crackerjack snacker nibbler snap crack n pop westpoolchestershireshure queens's lovley jubily delights? That's rather a bit cringe, innit bruv?
+
+
+Ability for both to add comments, photos and Documents to tasks
+
+
+title = models.CharField(max_length=250, null=False)
+    description = models.TextField(null=False)
+    category = models.CharField(max_length=150, blank=True, null=False)
+    probability = models.DecimalField(decimal_places=1, max_digits=2)
+    Impact = models.DecimalField(decimal_places=1, max_digits=2)
+    priority = models.CharField(choices=PRIORITY_CHOICE, max_length=30, null=True)
+    effect = models.TextField(blank=True, null=False)
+    mOwner = models.ForeignKey(ManagerID.Manager, null=True, blank=True, on_delete=models.SET_NULL)
+    eOwner = models.ForeignKey(EmpID.Employee, null=True, blank=True, on_delete=models.SET_NULL)
+    RRP = models.TextField(blank=True, null=False)
+    status = models.CharField(choices=STATUS_CHOICE, max_length=30, null=True)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateUpdated = models.DateTimeField(auto_now=True)
+    dateFinished = models.DateTimeField(null=True, blank=True)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Audit'])
+def docAdminCreate(request):
+    docs = Doc.objects.all()
+    #creation
+    form = DocCForm(initial={'creator':request.user})
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+        print (uploaded_file.name)
+        print (uploaded_file.size)
+        form = DocCForm(request.POST)
+        if form.is_valid():
+            docs = form.save(commit=False)
+            docs.creator = request.user
+            docs.document = uploaded_file
+            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
+            form.save()
+            return redirect('docboard')
+        else:
+            print (form.errors)
+
+    return render(request, 'doc_a_create.html',{'form': form, 'docs': docs,})
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Audit'])
+def docAdminCreate(request):
+    docs = Doc.objects.all()
+    #creation
+    form = DocCForm(initial={'creator':request.user})
+    if request.method == 'POST':
+        form = DocCForm(request.POST, request.FILES)
+        if form.is_valid():
+            docs = form.save(commit=False)
+            docs.creator = request.user          
+            
+            a = ('{document}'.format(**form.cleaned_data))
+            for d in os.listdir(settings.MEDIA_ROOT):
+                print(d.replace('_', ' '))
+                print(a)
+                if a == d.replace('_', ' '):
+                    print("-Hi-")
+                    tomeadd = datetime.datetime.now().strftime("%m-%d-%Y, %H:%M:%S")
+                    firstpath = settings.MEDIA_ROOT+ '\\' + d + '\\'
+                    firstpath.replace('\\', '')
+                    print(firstpath)
+                    os.rename(firstpath, tomeadd+d)
+                    print(d)
+                    if Doc.objects.filter(document=d).exists():
+                        c = Doc.objects.filter(document=d)
+                        print(d)
+                        c.delete()
+
+            Point.objects.create(pointOwner=request.user, dateCreated=datetime.datetime.now())
+            form.save()
+            return redirect('docboard')
+
+
+Name	Doc	date
+aa.pdf	a.pdf	'1'
+
+Name	Doc	date
+aa.pdf	a_1.pdf	'1'
+
+Name	Doc	date
+a.pdf	a_2.pdf	'0'
+
+____________________________________
+
+for name in looper:
+                sname = Doc.objects.filter(name=name).first()
+                print(name)
+                print(a)
+                if a == name:
+                    print("-Hi-")
+                    c = Doc.objects.filter(name=name)
+                    print(c)
+                    c.name = 'old' + c.name
+                    c.dateDeleted = datetime.datetime.now() + datetime.timedelta(days=100)
+                    c.save()
+                    print("-SAVED-")
+
+___________________________________ Search under
+	<div class="col">
+		<div class="col-12">
+			<div class="card text-center mb-3" style="background-color: white">
+			  	<div class="card-header" style="height: 3.5rem;" id='table-search-title'>
+			  		<h5 class="card-title"><button form = "form1" class="btn btn-success" type="submit">Search</button></h5>
+				</div>
+				<div id="table-search">
+					<table class="table table-responsive-lg">
+						<form id="form1" method="get">
+							{{myFilter.form.as_table}}
+							</form>
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+---
+------------------------------------------------
+complaints
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-short {
+  height: 600px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+<div class="container mx-auto">
+	<div class="row ">
+		<div class="col">
+			<div class="card text-center mb-3">
+				<div class="card-header"  id="table-title1">
+					<h5 class="card-title">OPEN COMPLAINTS</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" style="width: 100%">
+						<thead>
+							<tr id="table-title1">
+								<th>Name</th>
+                                <th>Phone</th>
+								<th>Email</th>
+								<th>Age</th>
+								<th>Address</th>	
+								<th>Source</th>
+                                <th>Problem</th>
+                                <th>Status</th>
+								<th>Created</th>
+                                <th></th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+						{% for c in custs %}
+							{% if c.status != 'Closed' %}
+							<tr >
+								<td>{{d.name}}</td>	
+								<td>{{d.phone}}</td>
+								<td>{{d.email}}</td>
+								<td>{{d.age}}</td>
+								<td>{{d.address}}</td>
+                                <td>{{d.source}}</td>
+                                <td>{{d.problem}}</td>
+								<td>{{d.status}}</td>
+                                <td>{{d.dateCreated}}</td>
+                                <td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+                                    <a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+                                </tr>
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row ">
+		<div class="col">
+			<div class="card text-center mb-3">
+				<div class="card-header"  id="table-title1">
+					<h5 class="card-title">OPEN COMPLAINTS</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" style="width: 100%">
+						<thead>
+							<tr id="table-title1">
+								<th>Name</th>
+                                <th>Phone</th>
+								<th>Email</th>
+								<th>Age</th>
+								<th>Address</th>	
+								<th>Source</th>
+                                <th>Problem</th>
+                                <th>Status</th>
+								<th>Created</th>
+                                <th></th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+						{% for c in custs %}
+							{% if c.status == 'Closed' %}
+							<tr >
+								<td>{{d.name}}</td>	
+								<td>{{d.phone}}</td>
+								<td>{{d.email}}</td>
+								<td>{{d.age}}</td>
+								<td>{{d.address}}</td>
+                                <td>{{d.source}}</td>
+                                <td>{{d.problem}}</td>
+								<td>{{d.status}}</td>
+                                <td>{{d.dateCreated}}</td>
+                                <td class="container" style="width: 10px;"><a class="btn btn-outline-warning  btn-block fa fa-refresh fa-lg" aria-hidden="true" href="{% url 'projectUpdate' p.id %}"></a>							
+                                    <a class="btn btn-outline-danger  btn-block fa fa-trash-o fa-lg" aria-hidden="true" href="{% url 'projectDelete' p.id %}"></a></td>
+                                </tr>
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+update
+
+{%  extends 'Base.html' %}
+{% block content %}
+<br>
+<div class="row">
+	<div class="card mx-auto">
+		<div class="card card-body">
+			<h1>REPORT UPDATE</h1>
+		</div>
+	</div>
+</div>
+<br>
+<div class="container">
+	<div class="row">	
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+				<form action="" method="POST" id="form1">
+					{% csrf_token %}
+					<hr>Auditee
+					<br>{{form.auditee}}
+					<hr>Location
+					<br>{{form.location}}
+					<hr>Deadline
+					<br style="margin-bottom: 63px;">{{form.deadline}}
+					<hr>Type
+					<br>{{form.NCR_or_OFI}}
+					<hr>Finished ?
+					<br>{{form.closed}}			
+			</div>
+		</div>
+		<div class="card mb-3 card-body text-center">
+			<div id="table-short">
+					<hr>Area Audited
+					<br>{{form.areaAudited}}
+					<hr>Comment
+					<br>{{form.comment}}
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row" style="margin-left: 865px;">
+			<div id="table-short">
+				<button class="btn btn-success  btn" form="form1" type="submit">Update</button></input>
+			</div>
+
+			<div id="table-short">
+				<a class="btn btn-warning  btn" style="margin-left: 10px;" href="{% url 'auditboard' %}">Cancle</a>
+		</div>
+</div>
+
+{% endblock %}
+
+view
+
+{%  extends 'Base.html' %}
+{% block content %}
+
+<style>
+#table-title1{
+	background-color: #108316;
+	color: white;
+	font-size:13px;
+	text-align: center;
+}
+
+#table-short {
+  height: 600px;
+  overflow-y: auto;
+}
+
+#table-search {
+  height: 800px;
+  font-size:12px;
+  overflow-y: auto;
+}
+
+#table-font{
+	font-size:12px;
+	text-align: left;
+}
+
+#title-font{
+	font-size:14px;
+	text-align: left;
+}
+
+</style>
+<br>
+<div class="container mx-auto">
+	<div class="row ">
+		<div class="col">
+			<div class="card text-center mb-3">
+				<div class="card-header"  id="table-title1">
+					<h5 class="card-title">General</h5>
+				</div>
+				<div id="table-short">
+					<table class="table table-striped table-bordered projects" style="width: 100%">
+						<thead>
+							<tr id="table-title1">
+								<th>Creator</th>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Deleted</th>
+							</tr>
+						</thead>
+						<tbody id="table-font" >
+						{% for d in docs %}
+							{% if d.dateDeleted != null %}
+								<tr >
+								<td>{{d.creator}}</td>	
+								<td><a class= "fa fa-download" href="{{d.document.url}}"> {{d.name}}</a></td>
+								<td>{{d.kind}}</td>
+								<td>{{d.dateCreated}}</td>
+								<td>{{d.dateUpdated}}</td>
+								<td>{{d.dateDeleted}}</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
+						</tbody>
+						<tfoot>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="max-width: 350px; margin-bottom: 10px;" class="container mx-auto w-50px">
+	<div class="col">
+		<div style="text-align:center; " class="button-box col-lg-12">
+            <a style="font-size: medium;" class="btn btn-warning  btn-block" aria-hidden="true" href="{% url 'docboard'%}"> Back</a>
+   		</div>
+	</div>
+</div>
+{% endblock %}
+
+----------------------------------------------
+HER BROKEN SMILE DEADLIFE
+"The BloodHound Gang - The Bad Touch Lyrics" by slorr55 is the current song. It was requested by Kitty_Stinky - https://youtu.be/v8tyehOb5dE

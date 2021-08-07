@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+		integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 
 	<style>
@@ -15,6 +17,7 @@
 			height: 100%;
 			background: #6e6e6e !important;
 		}
+
 		.user_card {
 			width: 350px;
 			margin-top: auto;
@@ -36,34 +39,39 @@
 			margin-top: 20px;
 		}
 
-		#form-title{
+		#form-title {
 			color: rgb(64, 190, 212);
 		}
+
 		.login_btn {
 			width: 100%;
 			background: #2bdd2b !important;
 			color: white !important;
 		}
+
 		.login_btn:focus {
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
+
 		.login_container {
 			padding: 0 2rem;
 		}
+
 		.input-group-text {
 			background: rgb(64, 190, 212) !important;
 			color: rgb(255, 255, 255) !important;
 			border: 0 !important;
 			border-radius: 0.25rem 0 0 0.25rem !important;
 		}
+
 		.input_user,
 		.input_pass:focus {
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
 
-		#messages{
+		#messages {
 			background-color: grey;
 			color: #fff;
 			padding: 10px;
@@ -72,6 +80,7 @@
 	</style>
 
 </head>
+
 <body>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
@@ -97,25 +106,25 @@
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
 
-								<input type="password" name="password" placeholder="Password..." class="form-control" >
+							<input type="password" name="password" placeholder="Password..." class="form-control">
 						</div>
 
-							<div class="d-flex justify-content-center mt-3 login_container">
-				 				<input class="btn login_btn" type="submit" value="Login">
-				   			</div>
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<input class="btn login_btn" type="submit" value="Login">
+						</div>
 					</form>
 
 				</div>
 
 				{% for message in messages %}
-					<p id="messages">{{message}}</p>
-				{% endfor %}			
-		
+				<p id="messages">{{message}}</p>
+				{% endfor %}
+
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Don't have an account? Please contact an Admin to Register you.
+						Don't have an account? Please contact annteeme@gmail.com to Register you for a trial. Thank you.
 					</div>
-			
+
 				</div>
 			</div>
 		</div>
